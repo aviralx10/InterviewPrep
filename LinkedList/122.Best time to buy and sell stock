@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+int maxProfit(vector<int>& prices) {
+	int sum = 0;
+	vector<int> high;
+	vector<int> low;
+	int n = prices.size();
+	for (int i = 0; i < n; i++) {
+		if (i == 0 && prices[i] < prices[i + 1]) {
+			low.push_back(prices[i]);
+		} else if (i == n - 1 && prices[i] > prices[i - 1]) {
+			high.push_back(prices[i]);
+		} else {
+			if (prices[i] > prices[i - 1] && prices[i] > prices[i + 1]) {
+				high.push_back(prices[i]);
+			} else if (prices[i] < prices[i - 1] && prices[i] < prices[i + 1]) {
+				low.push_back(prices[i]);
+			}
+		}
+	}
+	int i = 0;
+	if ( low.size() != 0) {
+		while (i < high.size()) {
+			sum = sum + (high[i] - low[i]);
+			i++;
+		}
+	} else {
+		return 0;
+	}
+	return sum;
+}
+int main() {
+#ifndef ONLINE_JUDGE
+	//for getting input from input1.txt
+	freopen("input1.txt", "r", stdin);
+	//for getting output from output1.txt
+	freopen("output1.txt", "w", stdout);
+#endif
+	int n;
+	cin >> n;
+	vector<int> prices(n);
+	for (int i = 0; i < n; i++) {
+		cin >> prices[i];
+	}
+	cout << maxProfit(prices);
+}
+
