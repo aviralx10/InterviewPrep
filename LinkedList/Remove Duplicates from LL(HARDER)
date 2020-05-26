@@ -1,0 +1,32 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* dummy=new ListNode;       //this would create the resultant list
+        dummy->next=head;
+        ListNode* p=dummy;                  //p would traverse only the distinct nodes in LL
+        ListNode* q=head;                   //q will check the mutiple occurences of the nodes in LL
+        while(q){
+            while(q->next && q->next->val==p->next->val){     // when duplicate nodes occur
+                q=q->next;
+            }
+            if(p->next==q){           //when distinct nodes occur 
+                p=p->next;
+            }else{                    
+                p->next=q->next; //note that only p->next is changed and not p because there may be case where multiple nodes 
+            }                    //occur after multiple nodes. For ex- 37,38,38,39,39. p->next=39 but would be made null after.
+            q=q->next;
+        }
+        head=dummy->next;       //make head as the result as the final LL is stored in dummy
+        return head;
+    }
+};
