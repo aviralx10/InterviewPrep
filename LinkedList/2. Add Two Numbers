@@ -1,0 +1,36 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* l3=new ListNode();          //this l3 would store the resultant summed linked list
+        ListNode* p=l1;                       // pointer on first LL
+        ListNode* q=l2;                       // pointer on second LL
+        ListNode* r=l3;                       // pointer for the resultant LL
+        int carry=0;  // used carry as an imp element as it would store the sum 
+                      // worst case scenario is 9+9+1 . therefore, carry can be either 1 or 0
+        while(p || q){
+            int x=p?p->val:0;               //if one list ends then put all other values as 0
+            int y=q?q->val:0;                // [0,9][1]  -> [1,9] -> through code concept -> [0,9][1,0]-> [1,9]
+            int sum=x+y+carry;                
+            carry=sum/10;
+            r->next=new ListNode(sum%10);                     //store the value of sum in the new node 
+            r=r->next;
+            if(p){p=p->next;}                         
+            if(q){q=q->next;}
+        }
+        if (carry>0){                                   //important to check if(carry>0) then element create a new node  
+            r->next=new ListNode(carry);                // to put the extra value of carry in it.
+            r=r->next;
+        }
+        return l3->next;                  // if you return l3 then 0 comes additional in the starting
+    }
+};
