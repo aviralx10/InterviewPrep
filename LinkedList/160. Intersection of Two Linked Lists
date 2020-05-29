@@ -1,0 +1,44 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+int count(ListNode* l1){
+    int count=0;
+    ListNode* p=l1;
+    while(l1){
+        l1=l1->next;
+        count++;
+    }   
+    return count;
+}
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {       //O(m+n)
+       //BASIC IDEA: make the count of two LL same and then traverse both pointer and comapare everytime
+       ListNode* p=headA;                                 
+        ListNode* q=headB;
+        int x=count(headA);
+        int y=count(headB);
+        if(x>y){        //if count LL(A) > LL(B) make pointer p come to the position so that both LL have same count.
+            for(int i=0;i<x-y;i++){
+                p=p->next;
+            }
+        }else if(x<y){
+            for(int i=0;i<y-x;i++){
+                q=q->next;
+            }
+        }
+        while((q||p) && p!=q){
+            p=p->next;
+            q=q->next;
+        }
+        if( p==NULL || q==NULL){
+            return NULL;
+        }
+        return p;
+    }
+};
