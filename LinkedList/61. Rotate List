@@ -1,0 +1,49 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {                      
+        if(head==NULL){                            //return empty list if list given is empty
+            return NULL;
+        }
+        if(k==0){                               //if k==0 no need to rotate
+            return head;
+        }
+        int count=0;                            //counts the number of elements in LL
+        ListNode* x=head;
+        while(x){
+            x=x->next;
+            count++;
+        }
+        if(count==1){                           //base case
+            return head;
+        }
+        k=k%count;             //if list size is 3 and rotation is 4 times then it is same as rotating by 1 time
+        if(k==0){              //if list size is 3 and rotation is 3 times then it is same as rotating by 0 times
+            return head;
+        }
+        ListNode* r=head;         //r is a pointer to the last element in the queue which would point to head after rotation
+        ListNode* q=head;         //q would be the head pointer after rotation and initially points at count-k th pos
+        ListNode* p=head;         //p would the last element in the LL obtained after rotation
+        while(r->next){
+            r=r->next;
+        }
+        for(int i=1;i<=count-k-1;i++){
+            p=p->next;
+            q=q->next;
+        }
+        q=q->next;                
+        r->next=head;
+        p->next=NULL;
+        head=q;
+        return head;
+    }
+};
