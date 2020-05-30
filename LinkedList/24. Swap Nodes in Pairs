@@ -26,7 +26,7 @@ public:
         if(r==NULL){                                        //covers the case if size of LL is 2
             return head;
         }
-        while(r){                                               //for size greater than 3
+        while(r){                                               //for size greater than 3 
             ListNode* x=p;
             p=r;
             if(r->next){q=r->next;}
