@@ -11,22 +11,22 @@
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-        if(head==NULL || head->next==NULL){
+        if(head==NULL || head->next==NULL){                     //if size of LL is 1 or 0 
             return head;
         }
         ListNode* p=head;
         ListNode* q=head;
         ListNode* r=head;
         q=q->next;
-        if(q->next){r=q->next;}
-        else{r=NULL;}
+        if(q->next){r=q->next;}                                    //covers the case if size of LL is 2
+        else{r=NULL;}                                           
         q->next=p;
         p->next=r;
         head=q;
-        if(r==NULL){
+        if(r==NULL){                                        //covers the case if size of LL is 2
             return head;
         }
-        while(r){
+        while(r){                                               //for size greater than 3
             ListNode* x=p;
             p=r;
             if(r->next){q=r->next;}
