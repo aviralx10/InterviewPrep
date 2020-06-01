@@ -1,0 +1,66 @@
+class MyQueue {
+public:
+    /** Initialize your data structure here. */
+    stack<int> s1;                  //s1 is for inserting the elements
+    stack<int> s2;                  //s2 is for deleting the elements
+    
+    MyQueue() {
+        
+    }
+                   
+    
+    /** Push element x to the back of queue. */
+    void push(int x) {
+        s1.push(x); 
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    int pop() {
+        while(!s1.empty()){             //for popping, transfer the elements from s1 to s2 and delete the top of s2.
+            int y=s1.top();
+            s1.pop();
+            s2.push(y);
+        }
+        int z=s2.top();
+        s2.pop();
+        while(!s2.empty()){         //again ,transfer elements from s1 to s2
+            int y=s2.top();
+            s2.pop();
+            s1.push(y);
+        }
+        return z;
+    }
+    
+    /** Get the front element. */
+    int peek() {
+        while(!s1.empty()){
+            int y=s1.top();     //same as pop but here we are not deleting the topmost element
+            s1.pop();
+            s2.push(y);
+        }
+        int z=s2.top();
+        while(!s2.empty()){
+            int y=s2.top();
+            s2.pop();
+            s1.push(y);
+        }
+        return z;
+    }
+    
+    /** Returns whether the queue is empty. */
+    bool empty() {
+        if(s1.empty()){                 //tells whether the stack is empty or not.
+            return true;
+        }
+        return false;
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
