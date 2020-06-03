@@ -1,0 +1,29 @@
+//OUR basic approach here is to push the indices of those rectangles whose size is >= those rectangles at the top.
+//if it is not, then we pop till the top<= size of the rectangle 
+//if s.empty() at any place then we know that the last element of the stack is the smallest among all and it is multiplied with i
+//if it is not,then we multiply the size of the rectangle by i-s.top()-1 in order to give us the width of the new rectangle 
+//in i-s.top()-1 ----- -1 here as we dont consider the ith index in our calculation
+// a smart approach here is to push 0 in our vector at the starting of the algo
+//so that we don't have to build another while loop to empty the stack.
+
+
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& height) {
+    height.push_back(0);
+    stack<int> s;
+    int i=0;
+    int max_area=0;
+    while(i<height.size()){
+        if(s.empty() || height[s.top()]<=height[i]){
+            s.push(i++);
+        }else{
+            int x=s.top();
+            s.pop();
+            max_area=max(max_area,height[x]*(s.empty()?i:i-s.top()-1));
+        }
+    }
+    return max_area;
+    }
+};
