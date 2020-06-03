@@ -1,0 +1,33 @@
+//basic algo is that if a number comes and if that number is less than the top of the stack 
+//then we pop the stack , decrement the value of k and add this smaller element when the topmost element is smaller
+//or equal to it in
+//order to form the lowest number. 
+
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        stack<char> res;
+        if(k==num.size()){return "0";}
+        int i=0;
+        while(i<num.size()){
+            while(res.size() && num[i]<res.top() && k ){
+                k--;              //IF num[i] is smaller than the topmost value of the stack..then pop that element 
+                res.pop();          //till we reach the top of the stack which is smaller than or equal to num[i]
+            }
+            res.push(num[i]);   //push if all conditions OK
+            i++;
+        }
+        while(k-- >0){       //will store some exception case -> for ex. stack= 1->2->3->4 and k=2..from above while loop
+            res.pop();      //no change in the stack..however we remove 3 and 4 to obtain 1->2 so that we get the smallest number
+        }                   //OUR MAIN AIM IS TO PROCEDE ONLY WHEN K=0
+        string ans="";            //will store the result
+        while(res.size()!=0){
+            ans=res.top()+ans;        //copy elements from the stack to ans in reverse manner.. for ex-> stack:1->2->9
+            res.pop();                //1. ans=9+""  2.ans=2+"9"  3.ans=1+"29"    
+        }
+        while(ans.length()>1 && ans[0]=='0'){       //case to eliminate all the leading zeroes..there may exist multiple
+            ans=ans.substr(1);                       //leading zeroes therefore used while loop 
+        }
+        return ans;
+    }
+};
