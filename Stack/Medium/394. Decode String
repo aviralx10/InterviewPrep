@@ -1,0 +1,67 @@
+//The idea is to use two stacks, one for integers and another for characters.
+//Now, traverse the string,
+
+//Whenever we encounter any number, push it into the integer stack and in case of any alphabet (a to z)
+or open bracket (‘[‘), push it onto the character stack.
+//Whenever any close bracket (‘]’) is encounter pop the character from the character stack until open bracket (‘[‘) 
+//is not found in the character stack. Also, pop the top element from the integer stack, say n. 
+//Now make a string repeating the popped character n number of time. Now, push all character of the string in the stack.
+
+
+
+//o(n2) solution
+//WHERE MY CODE WENT WRONG
+//ALTHOUGH I COVERED THE CASE OF SINGLE DIGITS LIKE 3[a]2[bc]
+//I DIDN'T COVER THE CASE OF MULTIPLE DIGITS or UPPER CASE CHARACTERS LIKE 100[a] OR 100[A]
+//FOR UPPER CASE CHARACTERS SIMPLY PUT ISDIGIT CONDITION
+//FOR MULTPLE DIGITS.. MAKE UP THE NUMBER TILL YOU ENCOUNTER '[' FOR EX. 1->0->0->[ 
+//SO NUMBER HERE = IN FIRST ITERATION   1
+//2ND ITERATION  1*10+0=10
+//3RD ITERATION  10*10+0=100
+//SO AS SOON AS I COUNTER '[' I PUSH THIS NUMBER TO S1 STACK ADN PUT NUM=0 TO STORE OTHER DIGITS
+class Solution {
+public:
+    string decodeString(string s) {
+        int i=0;
+        stack<char> s2;                 //create different stack for numbers and characters(alphabets and '[')
+        stack<int> s1;
+        string temp;                  //would store the temp string ...for ex 3[ab] then temp=ab... res=ababab pushed inside s2
+        string res;
+        int num=0;
+        while(i<s.length()){
+            if(isalpha(s[i])){                      //is it an alphabet
+                s2.push(s[i]);                                    
+            }else if(s[i]-'0'>=0 && s[i]-'0'<=9){               // is it a digit
+                num = num*10 + (s[i]-'0');        //an important case..would have to keep in mind multiple digit numbers too
+            }else if(s[i]=='['){                    //case'['
+                s1.push(num);                    //if opening braces comes..we know that our digit/number has ended and 
+                s2.push(s[i]);                  //we can push its value to s1
+                num=0;                          //put number again 0 to store different digits
+            }else{                                  //case ']'
+                string temp="";
+                string res="";
+                while(s2.top()!='['){                       //till we encounter '[' we store the string in temp
+                    temp=s2.top()+temp;
+                    s2.pop();
+                }
+                string t=temp;
+                if(s2.top()=='[')s2.pop();
+                int x=s1.top();                                 //this means the number with which our string is repeated
+                s1.pop();
+                while(x--){res+=t;}  //this line replicates the number of string and stores in res .. for ex=3[ab] res=ababab
+                int j=0;
+                while(j<res.length()){                  //we then push res into the stack s2 again
+                    s2.push(res[j]);
+                    j++;
+                }
+            }
+            i++;
+        }
+        string final="";
+        while(!s2.empty()){
+            final=s2.top()+final;                   //printing out our final resultant string
+            s2.pop();
+        }
+        return final;
+    }
+};
