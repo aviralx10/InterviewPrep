@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> res;
+        for(int i=0;i<tokens.size();i++){
+            if(tokens[i]!="+"&&tokens[i]!="-"&&tokens[i]!="*"&&tokens[i]!="/"){     //if string is a number/digit
+                res.push(stoi(tokens[i]));
+            }else{
+                int a=res.top();                  //if string is a operator
+                res.pop();
+                int b=res.top();                 //pop out the two elements and perform operations on them.
+                res.pop();
+                int c;
+                if(tokens[i]=="+"){c=a+b;}
+                else if(tokens[i]=="-"){c=b-a;}             //careful with subtraction and division..the 
+                else if(tokens[i]=="*"){c=a*b;}             //element to be popped out is put as dividend/minuend
+                else{c=b/a;}
+                res.push(c);
+            }
+        }
+        return res.top();
+    }
+};
