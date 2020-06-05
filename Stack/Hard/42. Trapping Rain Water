@@ -1,0 +1,86 @@
+//BRUTE FORCE APPROACH - O(N2) TIME COMPLEXITY O(1) SPACE COMPLEXITY
+//OUR MAIN APPROACH IS TO LOOK FOR THE MAX BULDING ON RIGHT AND LEFT FOR EVERY INDEX 
+//AND SELECT THE MINIMUM OF THOSE TWO MINUS THE HEIGHT OF THE INDEX OF BUILDING WE ARE AT
+//An element of the array can store water if there are higher bars on left and right. 
+//The amount of water to be stored in every element can be found out by finding the heights of bars
+//on the left and right sides. The idea is to compute the amount of water that can be stored in every
+//element of the array.
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n=height.size();
+        int res=0;
+        for(int i=1;i<n-1;i++){
+            int left=height[i];
+            int right=height[i];
+            for(int j=0;j<i;j++){
+                left=max(left,height[j]);
+            }
+            for(int j=i+1;j<n;j++){
+                right=max(right,height[j]);
+            }
+            res+=(min(left,right)-height[i]);
+        }
+        return res;
+    }
+};
+
+//DP SOLUTION O(N) TIME COMPLEXITY AND O(N) SPACE COMPLEXITY
+
+//same as above approach but storing the max height on left and right building of an index in a seperate array
+//to save our time
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n=height.size();
+        if(n==0){return 0;}
+        int res=0;
+        vector<int> left(n,0);
+        vector<int> right(n,0);
+        left[0]=height[0];
+        right[n-1]=height[n-1];
+        for(int j=1;j<n;j++){
+            left[j]=max(left[j-1],height[j]);
+        }
+        for(int j=n-2;j>=0;j--){
+            right[j]=max(right[j+1],height[j]);
+        }
+        for(int i=1;i<n-1;i++){
+            res+=(min(left[i],right[i])-height[i]);
+        }
+        return res;
+    }
+};
+
+
+
+//stack solution o(n) time complexity
+//the basic approach in this problem wpuld be the fact that
+1. if an element is less than or equal to the stack's top element then we push it inside the stack too and we know for sure
+that this the stack's top would be the leftmost boundary for this element to be pushed.
+2. if an element is greater than the stack'stop element then this element for sure is the rightmost boundary of the stack's 
+topmost element and we would want to pop it and store it and calculate the distance between its two boundaries 
+using distance=i-res.top()-1 . How much water would that index store => temp=min(height[i],height[res.top()])-height[x]
+and this temp*distance is added to the final result.
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n=height.size();
+        int ans=0;
+        stack<int> res;
+        int i=0;
+        while(i<n){
+            while(!res.empty() && height[i] > height[res.top()] ){
+                int x=res.top();
+                res.pop();
+                if(res.empty()) break; //covers the single case
+                int distance=i-res.top()-1;
+                int temp=min(height[i],height[res.top()])-height[x];
+                ans += temp*distance;
+            }
+            res.push(i++);
+        }
+        return ans;
+    }
+};
