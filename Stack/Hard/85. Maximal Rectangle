@@ -1,0 +1,48 @@
+//basic approach to this question is we create an array whose size is equal to the columns of the matrix given
+//we'll be storing 0 if matrix[i][j]='0' else we''ll be storing '1' for the first row
+// for rows greater 1 if matrix[i][j]='0' else we'll be appending the value of height by 1.
+//at every iteration we'll be creating a histogram and finding the max area of that histogram in order to find the 
+//biggest rectangle.
+//space complexity O(n)
+//time complexity O(m*n) . // m - no of rows . ... n-> no. of columns
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int> &height) {
+    stack<int> s;
+    height.push_back(0);
+    int maxSize = 0;
+    for(int i = 0; i < height.size(); i++){
+        if(s.empty() || height[i] >= height[s.top()]){
+            s.push(i);
+        }
+        else{
+            int temp = height[s.top()];
+            s.pop();
+            maxSize = max(maxSize, temp * (s.empty() ? i : i - 1 - s.top()));
+            i--;
+        }
+    }
+    return maxSize;
+    }
+    int maximalRectangle(vector<vector<char> > &matrix) {
+    if(matrix.empty()){
+        return 0;
+    }
+    int maxRec = 0;
+    vector<int> height(matrix[0].size(), 0);
+    for(int i = 0; i < matrix.size(); i++){
+        for(int j = 0; j < matrix[0].size(); j++){
+            if(matrix[i][j] == '0'){
+                height[j] = 0;
+            }
+            else{
+                height[j]++;
+            }
+        }
+        maxRec = max(maxRec, largestRectangleArea(height));
+    }
+    return maxRec;
+  }
+
+};
