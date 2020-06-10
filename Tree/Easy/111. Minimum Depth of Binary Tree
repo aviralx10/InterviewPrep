@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(root==NULL){
+            return 0;
+        }
+        if(root->left==NULL || root->right==NULL){    //when either of the left or right nodes is null, we want to know about
+            return 1+max(minDepth(root->left),minDepth(root->right)); //max height we can attain and that null should not affect our height
+        } //for ex=[1,2] has min height as 2 but the below code gives us answer as 1. therefore,one of them being null impacts the height therefire we used the above condition. 
+        else{
+            return 1+min(minDepth(root->left),minDepth(root->right)); //general logic
+        }
+    }
+};
