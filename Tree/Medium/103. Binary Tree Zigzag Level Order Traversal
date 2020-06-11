@@ -1,0 +1,26 @@
+
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(root==NULL){return {};}
+        vector<vector<int> > res;
+        vector<int> x;
+        queue<TreeNode*> q;
+        q.push(root);
+        int count=1;  
+        int y=0;                      //this variable helps to zig zag... if y=0,print regular order..y=1 print reverse order
+        while(!q.empty()){
+            if(q.front()->left){q.push(q.front()->left);}          
+            if(q.front()->right){q.push(q.front()->right);}      
+            x.push_back(q.front()->val);        
+            q.pop();
+            if(--count==0){      
+                if(y==0){res.push_back(x);y=1;}
+                else{reverse(x.begin(),x.end());res.push_back(x);y=0;}
+                x.clear();
+                count=q.size();     
+            }
+        }
+        return res;
+    }
+};
