@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int x=0;
+    int maxDepth(TreeNode* root) {
+        if(root==NULL){return 0;}
+        return 1+max(maxDepth(root->left),maxDepth(root->right));
+    }
+    bool isBalanced(TreeNode* root) {
+        if(root==NULL){return true;}
+        if(!root->left && !root->right){return true;}
+        int x=maxDepth(root->left);           //find out the left and the right height
+        int y=maxDepth(root->right);        // if the diff between the left and the right height is less than or equal to 1
+        return abs(x-y)<=1 && isBalanced(root->left) && isBalanced(root->right);//along with the fact that 
+                                //the left and the right tree may also be balanced is what makes the tree balanced
+    
+    
+    }
+    
+    
+};
