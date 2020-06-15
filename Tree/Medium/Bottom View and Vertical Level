@@ -44,4 +44,5 @@ vector<int> verticalOrder(Node *root){      ///final printing of the elements
         res.clear();
     }
     return BV;
+    }
 }
