@@ -1,0 +1,14 @@
+class Solution {
+public:
+    
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL){return NULL;}                
+        if(root==p || root==q){return root;}        //return root if any of the p or q is root.
+        TreeNode* left=lowestCommonAncestor(root->left, p, q);
+        TreeNode* right=lowestCommonAncestor(root->right, p, q);
+        if(left!=NULL && right!=NULL){return root;}   //IF BOTH ARE NOT NULL, AND RETURNING DIFFERENT VALUES, RETURN ROOT.
+        if(left==NULL && right==NULL){return NULL;}     //if both NULL then return NULL
+        return left!=NULL?left:right;       //if one of them is NULL , return the one which is not null
+        
+    }
+};
