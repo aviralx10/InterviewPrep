@@ -1,0 +1,25 @@
+//traverse every level using BFS level order technique and only push the first element inside the resultant array to be 
+//pushed.
+class Solution {   
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if(root==NULL){return {};}
+        queue<TreeNode*> q;
+        vector<int> res;
+        int count=1;
+        q.push(root);
+        res.push_back(root->val);
+        while(!q.empty()){
+            if(q.front()->left){q.push(q.front()->left);}
+            if(q.front()->right){q.push(q.front()->right);}
+            if(--count==0){           
+                q.pop();
+                count=q.size();
+                res.push_back(q.front()->val);
+            }else{
+                q.pop();
+            }
+        }
+        return res;        
+    }   
+};
