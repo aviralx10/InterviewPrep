@@ -1,0 +1,47 @@
+
+struct Node 
+{ 
+    int data; 
+    struct Node *left, *right; 
+}; 
+Node* newNode(int data) 
+{ 
+    Node *temp = new Node; 
+    temp->data = data; 
+    temp->left = temp->right = NULL; 
+    return temp; 
+} 
+void findMinMax(int *min,int *max,int hd,Node* root){     //finding minimum and maximum with respect to the root.
+    if(root==NULL){
+        return ;
+    }
+    if(hd< *min){*min = hd;}
+    if(hd> *max){*max = hd;}
+    findMinMax(min,max,hd-1,root->left);
+    findMinMax(min,max,hd+1,root->right);
+}
+vector<int> verticalLine(Node* root,int line_no,int hd){      //creating a vertical line
+    vector<int> res;
+    if(root==NULL) return {};
+    if(line_no==hd){
+        res.push_back(root->data);
+    }
+    verticalLine(root->left,line_no,hd-1);
+    verticalLine(root->right,line_no,hd+1);
+    return res;
+}
+vector<int> verticalOrder(Node *root){      ///final printing of the elements 
+    vector<int> res;
+    vector<vector<int> >final;
+    vector<int> BV;
+    if(root==NULL){return {};}
+    int min=0;int max=0;
+    findMinMax(&min,&max,0,root);
+    for(int line_no=min;line_no<=max;line_no++){
+        res=verticalLine(root,line_no,0);               
+        final.push_back(res);
+        BV.push_back(res[res.size()-1]);  //BV represents the Bottom View of the tree and we push the last element of res into it.
+        res.clear();
+    }
+    return BV;
+}
