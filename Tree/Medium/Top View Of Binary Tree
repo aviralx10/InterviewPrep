@@ -1,0 +1,33 @@
+//basic approach here is to traverse the tree in a vertical level order and print the topmost element of every level.
+//map is inroduced so that we print the topmost element of that level.If we find another element of the same level , then
+//we discard using map.
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+};
+Node* newNode(int key){
+    Node* node=new Node();
+    node->data=key;
+    node->left=node->right=NULL;
+    return node;
+};
+
+void TopView(struct Node* root){
+    if(root==NULL){return ;}
+    Node* n=NULL;
+    queue<pair<Node*,int>> q;
+    map<int,int> m;
+    q.push({root,0});
+    while(!q.empty()){
+         n=q.front().first;
+        int val=q.front().second;
+        q.pop();
+        if(m.find(val)==m.end()){
+            m[val]=n->data;
+            cout<<m[val]<<" ";
+        }
+        if(n->left){q.push(make_pair(n->left,val-1));}
+        if(n->right){q.push(make_pair(n->right,val+1));}
+    }
+}
