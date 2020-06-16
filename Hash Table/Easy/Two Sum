@@ -1,0 +1,29 @@
+//BRUTE FORCE APPROACH                      //O(n2) approach     O(1) space complexity
+for(int i=0;i<nums.size;i++){
+     for(int j=i+1;j<nums.size();j++){
+             if(nums[j]==target-nums[i]){           //take an element and search for the other element.
+                  return {i,j};                   //return if found
+             }
+     }
+}
+return {-1,-1};                     //if no such elements found
+
+
+//MOST EFFICIENT APPROACH USING HASH TABLE            //O(N) time complexity //O(n) space complexity.
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        unordered_map<int,int> m;             //unordered map used as hash table as search time is O(1)
+        for(int i=0;i<nums.size();i++){
+            auto p=m.find(target-nums[i]);                //if element not found, then insert in hashmap.
+            if(p!=m.end()){
+                res.push_back(i);
+                res.push_back(p->second);
+                break;
+            }
+            m[nums[i]]=i;
+        }
+        return res;
+    }
+};
