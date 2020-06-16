@@ -1,0 +1,42 @@
+//BRUTE FORCE ALGO      O(N2) TIME COMPLEXITY
+class Solution {
+public:
+    bool isPrime(int n){
+        if(n<=1){return false;}
+        for(int i=2;i<=sqrt(n);i++){
+            if(n%i==0){return false;}
+        }
+        return true;
+    }
+    int countPrimes(int n) {
+        int count=0;
+        if(n==0){return 0;}
+        for(int i=1;i<n;i++){
+            if(isPrime(i)){count++;}
+        }
+        return count;
+    }
+};
+
+//SIEVE OF ERASTHEMUS                O(N loglogN) time complexity 
+class Solution {
+public:
+    
+    int countPrimes(int n) {
+        vector<int> arr(n+1,1);                     //DECLARE A ARRAY OF SIZE N.. STORE 0 IF COMPOSITE..1 IF NOT
+        for(int i=2;i<=sqrt(n);i++){                  //MULTIPLES OF 2 3 AND OTHER PRIMES ARE OBSERVED AND MADE 0
+            if(arr[i]==1){
+                for(int j=2;j*i<=n;j++){
+                    arr[i*j]=0;
+                }
+            }
+        }
+        int count=0;                    //count the number of 1's present..they will be our primes
+        for(int i=2;i<n;i++){
+            if(arr[i]==1){
+                count++;
+            }
+        }
+        return count;
+    }
+};
