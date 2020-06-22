@@ -1,4 +1,5 @@
-//O(N) LINEAR SCAN METHOD
+//O(N) LINEAR SCAN METHOD - TIME COMPLEXITY
+//O(1) SPACE COMPLEXITY
 
 class Solution {
 public:
@@ -20,5 +21,33 @@ public:
             }
         }
         return res;                                     //RETURN THE RES;
+    }
+};
+
+//BINARY SEARCH METHOD                  //O(logn)
+class Solution {
+public:
+    int leftindex(vector<int>& nums, int target,bool left){                                 //to calculate the left and right index
+        int l=0;
+        int h=nums.size();                                                                      //boolean left plays an important role-
+        while(l<h){                                                                             //if left-true -- recurse to the left subarray of mid
+            int mid=(l+h)/2;                                                                    //if left-false -- recurse to the right subarray of mid
+            if(nums[mid]>target || (left && nums[mid]==target)){
+                h=mid;
+            }else{
+                l=mid+1;
+            }
+        }
+        return l;
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> res={-1,-1};
+        int left=leftindex(nums,target,true);                                   //calculate left index
+        if( left==nums.size() || nums[left]!=target ){                          //if left index is out of bounds return {-1,-1}
+            return res;
+        }
+        res[0]=left;                                                        //else res[0]=left
+        res[1]=leftindex(nums,target,false)-1;                                      //if all is right with left index calculate right index and store in res[1]
+        return res;
     }
 };
