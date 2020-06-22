@@ -1,0 +1,24 @@
+//O(N) LINEAR SCAN METHOD
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> res={-1,-1};
+        for(int i=0;i<nums.size();i++){                                 //FIRST FIND THE LOWEST INDEX WHERE TARGET IS FOUND
+            if(nums[i]==target){
+                res[0]=i;
+                break;
+            }
+        }
+        
+        if(res[0]==-1){return {-1,-1};}                       //IF TARGET VALUE NOT FIND IN ARRAY ,THEN RETURN {-1,-1}
+        
+        for(int i=nums.size()-1;i>=0;i--){                      // FIND THE HIGHEST INDEX WHERE TARGET IS FOUND BY REVERSE TRAVERSING THE ARRAY
+            if(nums[i]==target){
+                res[1]=i;
+                break;
+            }
+        }
+        return res;                                     //RETURN THE RES;
+    }
+};
