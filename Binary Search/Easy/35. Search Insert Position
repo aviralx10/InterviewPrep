@@ -1,0 +1,19 @@
+class Solution {
+public:                                                                             //DIRECT IMPLEMENTATION OF THE BINARY SEARCH ALGO
+    int searchInsert(vector<int>& nums, int target) {
+        int low=0;
+        int high=nums.size()-1;
+        while(low<=high){                                             //LOOPS TILL LOW BECOMES BIGGER/GREATER THAN HIGH
+            int mid=(low+high)/2;
+            if(target>nums[mid]){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return low;                               //CAN ALSO HANDLE MULTIPLE DUPLICATE VALUES AND RETURNS THE LOWEST VALUE
+    }
+};
+
+
+//TIME COMPLEXITY - O(NLOGN)
