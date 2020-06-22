@@ -1,0 +1,51 @@
+//BRUTE FROCE APPROACH O(N2) 
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(matrix.size()==0){return false;}
+        int x=matrix.size();
+        int y=matrix[0].size();
+        vector<int> res;
+        for(int i=0;i<x;i++){
+            for(int j=0;j<y;j++){
+                res.push_back(matrix[i][j]);            //convert 2D array to 1D array.
+            }
+        }
+        int l=0;                                    //binary search implemented onto 1D array to search for that element.
+        int r=res.size()-1;
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(res[mid]==target){
+                return true;
+            }else if(res[mid]>target){
+                r=mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return false;
+   }
+};
+
+
+//BINARY SEARCH APPROACH
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(matrix.size()==0){return false;}                 // IN CASE THE MATRIX IS [], THEREFORE RETURN FALSE AS IT IS EMPTY
+        int x=matrix.size();                                //CALCULATE THE ROW
+        int y=matrix[0].size();                             //CALCULATE THE COLUMN
+        int l=0;
+        int r=x*y-1;                                        //LAST ELEMENT OF THE MATRIX
+        while(l<=r){                                        //IMPLEMENT BINARY SEARCH ONTO A 2D MATRIX JUST LIKE 1D ARRAY 
+            int mid=l+(r-l)/2;                              
+            int x=matrix[mid/y][mid%y];                     //MAIN IMPORTANT CATCH
+            if(x==target){
+                return true;
+            }else if(x>target){r=mid-1;}
+            else{l=mid+1;}
+        }
+        return false;
+    }
+};
