@@ -1,0 +1,30 @@
+//BEST METHOD - BINARY SEARCH O(LOGN) TIME
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        if(nums.size()==1){return nums[0];}                   
+        int l=0;
+        int r=nums.size()-1;
+        if(nums[0]<nums[r]){ return nums[0];}             //this means that the array is sorted.
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(nums[mid]>nums[mid+1]){return nums[mid+1];}  //inflection point is mid+1 as nums[mid] is greater than nums[mid+1]        
+            if(nums[mid]<nums[mid-1]){return nums[mid];}     //inflection point is mid as nums[mid-1] is greater than nums[mid]
+            if(nums[mid]>nums[0]){l=mid+1;}                 //IF NUMS[MID]>NUMS[0] inflection point must lie to the right of mid.
+            else{r=mid-1;}                                    //IF NUMS[MID]<NUMS[0] THEN INFLECTION POINT MUST LIE TO THE LEFT OF MID;
+        }
+        return -1;
+    }
+};
+
+//LINEAR METHOD O(N) TIME 
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int x=nums[0];
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]>nums[i+1]){x=nums[i+1];break;}
+        }
+        return x;
+    }
+};
