@@ -1,0 +1,27 @@
+//BINARY SEARCH                             TIME COMPLEXITY O(M * LOG(M*N) )
+
+class Solution {
+public:
+    bool isenough(int x,int m,int n,int k){                                 //same as KTH SMALLEST NUMBER IN A SORTED MATRIX
+         int count=0;
+         for(int i=1;i<=m;i++){                                           //FIND THE NUMBER OF ELEMENTS LESS THAN MID
+             count+=min(x/i,n);
+         }
+        return k<=count;
+    }
+    long long findKthNumber(int m, int n, int k) {
+        
+        long long low=1;
+        long long high=m*n;
+        while(low<high){
+            long long mid=low+(high-low)/2;
+            long long count=0;
+            if(!isenough(mid,m,n,k)){                           //IF THERE ARE NOT ENOUGH ELEMENTS LESS THAN MID(K>MID) THEN LOW=MID+1 
+                low=mid+1;
+            }else{
+                high=mid;                                       //ELSE HIGH=MID;
+            }
+        }
+        return low;
+    }
+};
