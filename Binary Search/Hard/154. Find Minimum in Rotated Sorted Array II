@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        if(nums.size()==1){return nums[0];}                   
+        int l=0;
+        int r=nums.size()-1;
+        if(nums[0]<nums[r]){ return nums[0];}                     //ARRAY IS ALREADY SORTED.            
+        while(l<=r){
+            while (l < r && nums[l] == nums[l + 1]) l++;        //REMOVE DUPLICATES FROM THE LEFT AND MOVE AHEAD
+            while (r > l && nums[r] == nums[r - 1]) r--;        //REMOVE DUPLICATES FROM THE RIGHT AND MOVE AHEAD
+            int mid=l+(r-l)/2;
+            if(mid==nums.size()-1){break;}                    //THIS IS CASE WHEN {1,1} is given as nums and we have mid as the last element of the array 
+            if(nums[mid]>nums[mid+1]){return nums[mid+1];}  //SAME AS THE CASE OF FIND MINIMUM IN A SORTED ARRAY
+            if(nums[mid]<nums[mid-1]){return nums[mid];}     
+            if(nums[mid]>nums[0]){l=mid+1;}                 
+            else{r=mid-1;}                                   
+        }
+        return nums[l];
+    }
+};
