@@ -15,3 +15,30 @@ public:
         return res[k-1];
     }
 };
+
+//BINARY SSEARCH APPROACH
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int m=matrix.size();                                            
+        int n=matrix[0].size();
+        int low=matrix[0][0];
+        int high=matrix[m-1][n-1];
+        while(low<high){
+            int mid=low+(high-low)/2;                               //WE CALCULATE MID 
+            int count=0;
+            int j=n-1;                          
+            for(int i=0;i<m;i++){                              //HERE WE CALCULATE THE TOTAL NUMBER OF ELEMENTS LESS THAN MID AND CALCULATE COUNT
+                while(j>=0 && matrix[i][j]>mid)
+                    j--;
+                count+=j+1;
+            }
+            if(count<k){                                                        //IF COUNT>K, THEN LOW=MID+1;
+                low=mid+1;
+            }else{
+                high=mid;                                                           //ELSE HIGH=MID;
+            }
+        }
+        return low;
+    }
+};
