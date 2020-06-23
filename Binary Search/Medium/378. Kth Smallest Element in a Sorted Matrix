@@ -16,7 +16,7 @@ public:
     }
 };
 
-//BINARY SSEARCH APPROACH
+//BINARY SSEARCH APPROACH                                               //TIME COMPLEXITY - O((M+N) LOG(M*N) )
 class Solution {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
