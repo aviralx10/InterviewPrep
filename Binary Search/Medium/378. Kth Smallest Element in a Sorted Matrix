@@ -16,7 +16,7 @@ public:
     }
 };
 
-//BINARY SSEARCH APPROACH                                               //TIME COMPLEXITY - O((M+N) LOG(M*N) )
+//BINARY SEARCH APPROACH                                               //TIME COMPLEXITY - O((M+N) LOG(M*N) )
 class Solution {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
@@ -33,7 +33,7 @@ public:
                     j--;
                 count+=j+1;
             }
-            if(count<k){                                                        //IF COUNT>K, THEN LOW=MID+1;
+            if(count<k){                                                        //IF COUNT<K, THEN LOW=MID+1;
                 low=mid+1;
             }else{
                 high=mid;                                                           //ELSE HIGH=MID;
@@ -42,3 +42,6 @@ public:
         return low;
     }
 };
+
+this analogy can also be used to Find median in row wise sorted matrix..simply as the median is a point where n/2 elements are smaller than it in the array where
+n is the size of the array. So as soon as we find n/2 elements less than the mid we return mid.
