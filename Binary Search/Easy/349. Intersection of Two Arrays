@@ -1,0 +1,24 @@
+//NOT A BINARY SEARCH QUESTION BUT A TWO POINTER QUESTION WHEREIN WE USE TWO POINTERS TO SOLVE THE QUESTION
+//THIS QUESTION IS SIMILAR TO THE INTERSECTION OF LINKED LIST QUESTION 
+//HERE WE SORT THE ARRAYS AS IT WOULD BE A BETTER DEAL TO CONSIDER THEM INTO ACTION AS THEN COMPARING AND ADDING INTO THE RESULTANT VECTOR BECOMES EASY
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        int a=0;                //POINTER FOR ARRAY NUM1
+        int b=0;                //POINTER FOR ARRAY NUM2
+        vector<int> res;
+        while(a<nums1.size() && b<nums2.size()){
+            if(nums1[a]==nums2[b]){res.push_back(nums1[a]);a++;b++;}            //IF MATCHED, ADD THE RESULT INTO THE VECTOR AND MOVE BOTH POINTERS AHEAD
+            else if(nums1[a]<nums2[b]){a++;}                  //IF NUM[A] < NUM[B] MOVE A POINTER TILL YOU REACH A POSITION WHERE NUM[A]>=NUM[B]  
+            else if(nums1[a]>nums2[b]){b++;}
+            while(a>0 && a<nums1.size() && nums1[a]==nums1[a-1]){a++;}        //THIS IS TO AVOID THE DUPLICATE ELEMENTS AND TO MOVE FORWARD.
+            while(b>0 && b<nums2.size() && nums2[b]==nums2[b-1]){b++;}
+        }
+        return res;
+    }
+};
+
+//O(N) COMPLEXITY
