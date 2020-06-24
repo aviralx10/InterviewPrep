@@ -15,7 +15,7 @@ public:
             else if(nums1[a]<nums2[b]){a++;}                  //IF NUM[A] < NUM[B] MOVE A POINTER TILL YOU REACH A POSITION WHERE NUM[A]>=NUM[B]  
             else if(nums1[a]>nums2[b]){b++;}
             while(a>0 && a<nums1.size() && nums1[a]==nums1[a-1]){a++;}        //THIS IS TO AVOID THE DUPLICATE ELEMENTS AND TO MOVE FORWARD.
-            while(b>0 && b<nums2.size() && nums2[b]==nums2[b-1]){b++;}
+            while(b>0 && b<nums2.size() && nums2[b]==nums2[b-1]){b++;}          //FOR EX CHECK WHEN NUMS1 IS [1,2,2,1] AND NUMS2 IS [2,2]
         }
         return res;
     }
