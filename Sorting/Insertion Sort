@@ -9,3 +9,5 @@ void insertionsort(int A[],int n){
     A[j+1]=x;
     
 }
+
+//O(n2) time
