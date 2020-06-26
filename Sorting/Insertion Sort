@@ -1,0 +1,11 @@
+void insertionsort(int A[],int n){
+
+  for(int i=1;i<n;i++){                     //as the 0th index element is assumed to be at its sorted position
+    int x=A[i];
+    int j=i-1;
+    while(A[j]>x && j>-1){
+        j--;                                //as we want to find the place for our x.
+    }
+    A[j+1]=x;
+    
+}
