@@ -1,0 +1,12 @@
+void selection(int A[],int n){
+
+   for(int i=0;i<n-1;i++){
+        int j=k;
+        for(j=k=i;j<n;j++){
+              if(A[j]<A[k]){
+                  k=j;
+              }
+        }
+        swap(A[i],A[k]);
+
+}
