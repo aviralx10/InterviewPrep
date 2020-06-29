@@ -1,0 +1,16 @@
+void bfs(int i,int adjacency[][],int visited []){
+      queue<int> q;
+      visited[i]=1;                       //tell us which nodes are explored and which are not explored.
+      q.push(i);
+      while(!q.empty()){
+         int x=q.top();
+         cout<<x<<" ";                            //displaying the topmost element of the queue.
+         q.pop();
+         for(int v=1;v<=n;v++){                               //visiting all the nodes
+            if(adjacency[x][v]==1 && visited[v]==0){          //tells us which nodes are connected and which are not with the help of adjacency matrix 
+                q.push(v);                                    //and if there is a link between them, push them inside the queue. visited[v]==0 implies 
+                visited[v]==1;                                //that the node is not pushed and is unexplored .
+            }
+         }     
+      }
+}
