@@ -1,0 +1,45 @@
+int findMin(int key[],bool mstSet){                   //helps in finding the minimum vertex with min value among the vertices which are not included in MST.
+    int min=MAX_INT,min_index;
+    for(v=0;v<V;v++)
+        if(mstSet[v]==false && key[v]<min)                        
+          min=key[v];min_index=v;
+          
+    return min_index;
+}
+
+void printMST(int parent[], int graph[V][V])  
+{  
+    cout<<"Edge \tWeight\n";  
+    for (int i = 1; i < V; i++)  
+        cout<<parent[i]<<" - "<<i<<" \t"<<graph[i][parent[i]]<<" \n";  
+}
+
+int prim(int graph[V][V]){
+    bool mstSet[V];
+    int key[V];
+    int parent[V];
+        for(int i=0;i<V;i++)
+            key[i]=INT_MAX;mstSet[i]=false;
+    // Always include first 1st vertex in MST.  
+    // Make key 0 so that this vertex is picked as first vertex
+    key[0]=0; 
+    parent[0]=-1;
+      for(int count=0;count<V-1;count++){
+          int u=findMin(key,mstSet);                            // Pick the minimum key vertex from the set of vertices not yet included in MST
+          mstSet[u]=true;
+          // Update key value and parent index of  
+          // the adjacent vertices of the picked vertex.  
+          // Consider only those vertices which are not  
+          // yet included in MST  
+          for(int v=0;v<V;v++){
+                    // graph[u][v] is non zero only for adjacent vertices of m  
+                    // mstSet[v] is false for vertices not yet included in MST  
+                    // Update the key only if graph[u][v] is smaller than key[v]  
+                    if(graph[u][v] && mstSet[v]==false && graph[u][v]<key[v])
+                        key[v]=graph[u][v];parent[v]=u;
+          
+          }
+      }
+    
+    mstprint(parent,graph);
+}
