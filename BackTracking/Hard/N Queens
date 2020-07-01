@@ -1,3 +1,8 @@
+TIME COMPLEXITY - O(2^N)
+//A genereal doubt in IsSafe would be that why not we have checked the upper elements in the same column. This is because we have come to the current postion
+//from those places only and we only have to place 1 queen in 1 column and then we need to move on.
+
+
 class Solution {
 public:
     std::vector<std::vector<std::string> > solveNQueens(int n) {
