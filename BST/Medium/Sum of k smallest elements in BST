@@ -1,0 +1,93 @@
+//APPROACH 1:BRUTE FORCE - TRAVERSE THE ARRAY INORDERWISE AS IT WOULD RESULT IN AN ASCENDING ORDER ARRAY --- O(K) 
+
+struct Node * insert(Node *root, int key) 
+{ 
+    // If the tree is empty, return a new Node 
+    if (root == NULL) 
+        return createNode(key); 
+  
+    // Otherwise, recur down the tree 
+    if (root->data > key) 
+        root->left = insert(root->left, key); 
+  
+    else if (root->data < key) 
+        root->right = insert(root->right, key); 
+  
+    // return the (unchanged) Node pointer 
+    return root; 
+} 
+
+int ksmallestElementSumRec(Node *root, int k, int &count){
+    if(root==NULL){return 0;}
+    if(count>k){return 0;}
+    int res=ksmallestElementSumRec(root->left,k,count);         //recur to left subtree
+    if(count>=k){return res;}                                   //IMP CONDITION
+    res+=root->data;                                            
+    count++;                                                  //COUNT THE CURRENT CODE AND INCLUDE IT.
+    if(count>=k){return res;}                                 //CHECK IF COUNT>K
+    return res+ksmallestElementSumRec(root->right,k,count);  //RECUR TO THE RIGHT SUBTREE AND RETURN THE FINAL RESULT
+}
+int ksmallestElementSum(struct Node *root, int k) 
+{ 
+   int count = 0; 
+   ksmallestElementSumRec(root, k, count); 
+} 
+
+cout <<  ksmallestElementSum(root, k) <<endl; 
+
+
+
+//APPROACH 2 : AUGMENTED TREE METHOD: HERE WE DONT HAVE TO TRAVERSE THE TREE AND WE COUNT THE SUM AND THE LEFT COUNT OF A ROOT BEFORE HAND DURING THE CREATION OF
+//THE TREE.   O(HEIGHT OF TREE)
+
+
+struct Node *createNode(int data) 
+{ 
+    Node * new_Node = new Node; 
+    new_Node->left = NULL; 
+    new_Node->right = NULL; 
+    new_Node->data = data; 
+    new_Node->lCount = 0 ; 
+    new_Node->Sum = 0; 
+    return new_Node; 
+} 
+struct Node * insert(Node *root, int key) 
+{ 
+    // If the tree is empty, return a new Node 
+    if (root == NULL) 
+        return createNode(key); 
+  
+    // Otherwise, recur down the tree 
+    if (root->data > key) 
+    { 
+        // increment lCount of current Node 
+        root->lCount++;                                            //CALCULATE COUNT OF LEFT LEAVES BEFORE HAND
+  
+        // increment current Node sum by adding 
+        // key into it 
+        root->Sum += key;                                         //CALCULATE SUM OF LEFT LEAVES BEFORE HAND
+  
+        root->left= insert(root->left , key); 
+    } 
+    else if (root->data < key ) 
+        root->right= insert (root->right , key ); 
+  
+    // return the (unchanged) Node pointer 
+    return root; 
+} 
+  
+void ksmallestElementSumRec(Node *root, int k , int &temp_sum){
+  if(root==NULL){return ;}
+  if(root->lcount+1==k) {          //IF THE COUNT OF LEFT LEAVES PLUS THE ROOT IS EQUAL TO K
+      temp_sum+=root->data+root->sum; 
+  }
+  
+  if(k>root->lcount+1){
+      temp_sum+=root->data+root->sum; 
+      k=k-(root->lcount+1);
+      ksmallestElementSumRec(root->right,k ,temp_sum);              //recur to right subtree if k>(count of left subtree) 
+  }
+  else{
+      ksmallestElementSumRec(root->left,k,temp_sum);                //recur to left subtree if k<(count of left subtree)                
+  }
+}
