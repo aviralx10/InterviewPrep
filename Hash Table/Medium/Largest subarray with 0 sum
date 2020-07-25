@@ -1,0 +1,43 @@
+//BRUTE FORCE APPROACH .  //O(N2) TIME , O(1) SPACE
+int maxLen(int arr[], int n) 
+{ 
+    int max_len = 0; // Initialize result 
+  
+    // Pick a starting point 
+    for (int i = 0; i < n; i++) { 
+        // Initialize currr_sum for every starting point 
+        int curr_sum = 0; 
+  
+        // try all subarrays starting with 'i' 
+        for (int j = i; j < n; j++) { 
+            curr_sum += arr[j]; 
+  
+            // If curr_sum becomes 0, then update max_len 
+            // if required 
+            if (curr_sum == 0) 
+                max_len = max(max_len, j - i + 1); 
+        } 
+    } 
+    return max_len; 
+}
+
+
+
+
+
+
+//OPTIMISED APPROACH USING HASH TABLES      //O(N) time, O(N) space 
+int maxLen(int A[], int n)
+{
+    int sum=0;
+    int len=0;
+    unordered_map<int,int> m;
+    for(int i=0;i<n;i++){
+        sum+=A[i];
+        if(sum==0 && len==0){len=1;}            //exception case
+        if(sum==0){len=i+1;}                    //exception case
+        if(m.find(sum)==m.end()){m[sum]=i;}     //general case
+        else{ if((i-m[sum])>len){len=i-m[sum];}}
+    }
+    return len;
+}
