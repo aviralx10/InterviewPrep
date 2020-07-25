@@ -1,0 +1,37 @@
+//BRUTE FORCE APPROACH (O(N*K*LOG(N)) TIME)
+
+FOR EVERY WINDOW THE COUNT OF DISTINCT ELEMENT IS FIRST SAID TO BE ZERO
+WE CALCULATE THE COUNT OF DISTINCT ELEMENTS EVERYTIME FOR EACH WINDOW AND STORE IT INSIDE THE HASHMAP.
+K*LOG(N) FOR TRAVERSING AND SEARCHING THE ELEMENTS INSIDE THE HASH MAP.
+
+
+
+
+//OPTIMISED APPROACH O(N) TIME 
+//BASICALLY IN THIS APPROACH KEEP A COUNTER OF DISTINCT ELEMENTS IN EVERY WINDOW..REMEMBER THE HASH TABLE USED
+//ONLY DELETE THE ELEMENT COUNT OF THE FIRST NUMBER WHILE TRANSITIONING TO THE NEXT WINDOW AND ADD THE NEW ELEMENT INSIDE THE HASH TABLE
+vector <int> countDistinct (int A[], int n, int k)
+{   
+    vector<int> res;
+    unordered_map<int,int> m;
+    int distinct=0;                       //KEEPS A CHECK OF ALL THE DISTINCT ELEMENTS INSIDE EACH WINDOW
+    for(int i=0;i<k;i++){
+        if(m[A[i]]==0){                   //IF COUNT IS 0 , THEN THE ELEMENT IS DISTINCT
+            distinct++;
+        }
+        m[A[i]]++;                        //IF DISTINCT OR NOT DISTINCT , THE ELEMENT COUNT HAS TO BE INCREASED BY 1 IN THE HASH TABLE
+    }
+    res.push_back(distinct);
+    for(int i=k;i<n;i++){
+        if(m[A[i-k]]==1){                   //DELETING THE FIRST ELEMENT OF THE PREVIOUS WINDOW 
+            distinct--;                     //IF M[A[I-K]]==1 , THEN WE LOST A DISTINCT ELEMENT AND HENCE WE DECREMENT THE DISTINCT VALUE BY 1.
+        }
+        m[A[i-k]]--;                      //IF DISTINCT OR NOT DISTINCT , THE FIRST ELEMENT COUNT HAS TO BE DECREASED BY 1 IN THE HASH TABLE
+        if(m[A[i]]==0){                   //ADDING THE NEW ELEMENT IN THE NEW ELEMENT    
+            distinct++;
+        }
+        m[A[i]]++;
+        res.push_back(distinct);
+    }
+    return res;
+}
