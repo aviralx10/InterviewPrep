@@ -1,0 +1,37 @@
+//BEST APPROACH - TIME O(N*K) SPACE O(N)                 k-length of the pattern , n - is the total words inside the dictionary
+
+
+vector<string> findMatchedWords(vector<string> dict,string pattern)
+{
+       vector<string> res;
+       unordered_map<char,int> m;
+       string hash;                                       //used for the creation of a specific hash code for the pattern string
+       for(int i=0;i<pattern.length();i++){
+           if(m.find(pattern[i])==m.end()){               //if not found..means that the character is distinct and we need to map it/
+               m[pattern[i]]=i;
+               hash+=m[pattern[i]];
+               continue;
+           }else{
+               hash+=m[pattern[i]];                     //else add the previous stored value inside it.
+           }
+       }
+
+       for(int i=0;i<dict.size();i++){
+           string temp=dict[i];                                       //every word of the string
+           if(temp.length()==pattern.length()){                     //if the pattern size == temp size then only proceed
+               unordered_map<char,int> n;
+               string a;
+               for(int i=0;i<temp.length();i++){                    
+                    if(n.find(temp[i])==n.end()){                    //create a hash code for the a string
+                        n[temp[i]]=i;
+                        a+=n[temp[i]];
+                        continue;
+                    }else{
+                        a+=n[temp[i]];
+                    }
+               }
+               if(a==hash){res.push_back(temp);}                  //if they match then include it inside the resultant array.
+           }
+       }
+       return res;
+}
