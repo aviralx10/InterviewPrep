@@ -1,0 +1,19 @@
+//O(S) time complexity..
+string find(string S) {
+    set<int> s;
+    map<int,char> m1;           //to calculate the frequency of the elements inside the String              
+    for(int i=0;i<S.length();i++){
+        if(s.find(S[i])==s.end()){        //encountering distinct elements inside the string
+            s.insert(S[i]);
+            m1[S[i]]=1;
+        }else{                          //duplicate elements
+            m1[S[i]]++;
+        }
+    }
+    for(int i=0;i<S.length();i++){              
+        if(m1[S[i]]==1){                    //the character of the first distinct element is returned
+            return string(1,S[i]);
+        }
+    }
+    return "-1";                    //if all the characters are duplicates and have frequency>1 , return "-1"
+}
