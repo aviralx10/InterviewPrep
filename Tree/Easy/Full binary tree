@@ -1,0 +1,15 @@
+//FULL TREE IS A TREE WHICH HAS 
+1. 2 NODES IF IT IS NOT A LEAF NODE
+2. 0 NODES IF IT IS A LEAF NODE
+THERE CANNOT EXIST 1 CHILD NODE,EITHER IT HAS 2 CHILD NODES OR 0 CHULD NODES
+
+
+bool isFullTree (struct Node* root)
+{
+    if(root->left==NULL && root->right==NULL){return true;}
+    if((root->left==NULL && root->right) || (root->left && root->right==NULL)){
+        return false;
+    }
+    return isFullTree(root->left)&&isFullTree(root->right);
+    
+}
