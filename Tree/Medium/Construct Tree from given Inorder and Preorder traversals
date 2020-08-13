@@ -37,3 +37,10 @@ int search(char arr[], int strt, int end, char value)
             return i;  
     }  
 }  
+
+//CASE OF POSTORDER AND INORDER
+only do
+index=n-1;
+index--;
+tNode->left = buildTree(in, pre, inStrt, inIndex - 1);  
+tNode->right = buildTree(in, pre, inIndex + 1, inEnd);  
