@@ -1,0 +1,41 @@
+string smallestWindow (string S, string P){
+    if(S.length()<P.length()){
+        return "-1";
+    }
+    map<char,int> s;
+    map<char,int> p;
+    for(int i=0;i<P.length();i++){
+        if(p.find(P[i])==p.end()){
+            p[P[i]]=1;
+        }else{
+            p[P[i]]++;
+        }
+    }
+    int count=0;
+    int start=0;
+    int start_i=-1;
+    int len=INT_MAX;
+    for(int i=0;i<S.length();i++){
+        char x=S[i];
+        if(s.find(x)==s.end()){
+            s[x]=1;
+        }else{
+            s[x]++;
+        }
+        if(s[x]<=p[x] && (p.find(x)!=p.end())){count++;}
+        if(count==P.length()){
+            while(s[S[start]]>p[S[start]] || (p.find(S[start])==p.end())){
+                if(s[S[start]]>p[S[start]]){
+                    s[S[start]]--;
+                }
+                start++;
+            }
+            int winlen=i-start+1;
+            if(winlen>len){
+                len=min(winlen,len);
+                start_i=start;
+            }
+        }
+    }
+    return S.substr(start_i,len);
+}
