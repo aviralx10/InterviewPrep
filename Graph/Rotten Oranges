@@ -1,0 +1,66 @@
+bool isValid(int i,int j,int R,int C){
+    if(i>=0 && i<R && j>=0 && j<C){
+        return true;
+    }
+    return false;
+}
+
+bool isCheck(vector<vector<int> > &matrix, int R, int C){
+    for(int i=0;i<R;i++){
+        for(int j=0;j<C;j++){
+            if(matrix[i][j]==1){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+int rotOranges(vector<vector<int> > &matrix, int R, int C)
+{
+    int ans=0;
+    queue<pair<int,int>> q;
+    for(int i=0;i<R;i++){
+        for(int j=0;j<C;j++){
+            if(matrix[i][j]==2){
+                q.push({i,j});
+            }
+        }
+    }
+    q.push({-1,-1});
+    while(!q.empty()){
+        bool flag=false;
+        while(q.front().first!=-1 && q.front().second!=-1){
+            int x=q.front().first;
+            int y=q.front().second;
+            if(isValid(x,y+1,R,C) && matrix[x][y+1]==1){ //right box
+                if(flag==false){flag=true;ans++;}
+                matrix[x][y+1]=2;
+                q.push({x,y+1});
+            }
+            if(isValid(x,y-1,R,C) && matrix[x][y-1]==1){ //left box
+                if(flag==false){flag=true;ans++;}
+                matrix[x][y-1]=2;
+                q.push({x,y-1});
+            }
+            if(isValid(x-1,y,R,C) && matrix[x-1][y]==1){ //top box
+                if(flag==false){flag=true;ans++;}
+                matrix[x-1][y]=2;
+                q.push({x-1,y});
+            }
+            if(isValid(x+1,y,R,C) && matrix[x+1][y]==1){ //bottom box
+                if(flag==false){flag=true;ans++;}
+                matrix[x+1][y]=2;
+                q.push({x+1,y});
+            }
+            q.pop();
+            
+        }
+        q.pop();
+        if(!q.empty()){
+            q.push({-1,-1});
+        }
+    }
+    if(isCheck(matrix,R,C)==false){return -1;}
+    return ans;
+}
