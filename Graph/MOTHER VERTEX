@@ -1,0 +1,23 @@
+//BRUTE FORCE: 1. GOING TO ALL VERTICES AND APPLYING DFS TO CHECK IF ALL OTHER VERTICES CAN BE REACHED WITH THE HELP OF THIS VERTICE.
+IF YES, THEN RETURN i, ELSE REFRESH VISITED AS ALL 0 AND CONTINUE;
+void p(vector<int> g[],vector<int> &visited,int i){
+    visited[i]=1;
+    for(int j: g[i]){
+        p(g,visited,j);
+    }
+}
+int findMother(int V, vector<int> g[]) 
+{ 
+    int res=-1;
+    for(int i=0;i<V;i++){
+            vector<int> visited(V,0);
+            p(g,visited,i);
+            for(int i=0;i<visited.size();i++){
+                if(visited[i]==0){
+                    continue;
+                }
+            }
+            if(i==V){return i;}
+    }
+    return -1;
+} 
