@@ -1,0 +1,26 @@
+bool d(vector<bool> &visited,int i,vector<int> g[],int parent){
+    visited[i]=true;
+    for(int j: g[i]){             
+        if(visited[j]==0){                                    //explore through DFS by going through its adjacency list
+            if(d(visited,j,g,i)){
+                return true;
+            }
+        }else if(j!=parent){      //if j is not the parent and it is visited ,then definitely it points to a vertice which is not its parent,CYCLE EXISTS
+            return true;
+        }
+    }
+    return false;                 //no cycle exists
+}
+bool isCyclic(vector<int> g[], int V)
+{
+    vector<bool> visited(V,false);
+    vector<bool> rS(V,false);
+    for(int i=0;i<V;i++){
+        if(visited[i]==0){
+            if(d(visited,i,g,-1)){                  //-1 is the parent of the first node to be explored
+                return true;
+            }
+        }
+    }
+    return false;
+}
