@@ -1,0 +1,30 @@
+bool cycle(int i,vector<int> adj[],vector<bool> &visited,vector<bool> &s){
+    if(s[i]==1){return true;}                       //if they are already in s...cycle exists.
+    else{
+        bool res=false;                                     
+        visited[i]=1;                               //mark as visited and make s[i]=1 and explore further i...NOTICE IT IS A SLIGHT MODIFATION OF DFS
+        s[i]=1;
+        for(int j: adj[i]){
+            if(cycle(j,adj,visited,s)){
+                return true;
+            }
+        }
+    }
+    s[i]=0;  
+    return false;                                   //no cycle exists
+}
+
+bool isCyclic(int V, vector<int> adj[])
+{
+   bool res=false;
+   vector<bool> visited(V,false);
+   vector<bool> s(V,false);                               //vector for storing the nodes currently under exploration and are in Stack
+   for(int i=0;i<V;i++){
+       if(visited[i]==0){
+           if(cycle(i,adj,visited,s)){
+                return true;
+           }
+       }
+   }
+   return false;;
+}
