@@ -1,6 +1,8 @@
 //BRUTE FORCE: 1. GOING TO ALL VERTICES AND APPLYING DFS TO CHECK IF ALL OTHER VERTICES CAN BE REACHED WITH THE HELP OF THIS VERTICE.
 IF YES, THEN RETURN i, ELSE REFRESH VISITED AS ALL 0 AND CONTINUE;
+//TIME COMPLEXITY-   V(V+E)- UNACCEPTABLE FOR LONG GRAPHS
 void p(vector<int> g[],vector<int> &visited,int i){
+    if(visited[i]==1){return;}
     visited[i]=1;
     for(int j: g[i]){
         p(g,visited,j);
@@ -12,12 +14,49 @@ int findMother(int V, vector<int> g[])
     for(int i=0;i<V;i++){
             vector<int> visited(V,0);
             p(g,visited,i);
-            for(int i=0;i<visited.size();i++){
-                if(visited[i]==0){
-                    continue;
+            int j=0;
+            for(j=0;j<V;j++){
+                if(visited[j]==0){                      //FOUND AN UNVISITED NODE..THEREFORE NOT THE MOTHER NODE..BREAK AND CHECK FOR OTHER NODES
+                    break;
                 }
             }
-            if(i==V){return i;}
+            if(j!=V){continue;}                             //CHECKING FOR OTHER NODES CONDITION
+            else{return i;}                                 //RETURNING THE MOTHER NODE
     }
     return -1;
 } 
+
+
+//KOSARAJU'S(STRONGLY CONNECTED GRAPH) APPROACH // TIME COMPLEXITY-O(V+E) ....... SPACE COMPLEXITY-O(V)
+
+void DFS(int i,vector<int> &visited,vector<int> g[]){
+    visited[i]=1;
+    for(int j:g[i]){
+        if(visited[j]!=true){
+            DFS(j,visited,g);
+        }
+    }
+}
+int findMother(int V, vector<int> g[]) 
+{ 
+    vector<int> visited(V,false);
+    int v;                                                  //this is the mother vertex
+    for(int i=0;i<V;i++){
+        if(visited[i]==false){
+            DFS(i,visited,g);                                 //doing the DFS traversal and seeing if all other vertices are reachable or not.
+            v=i;                                            //keep track of the last visited vertex
+        }
+    }
+    
+    for(int i=0;i<V;i++){
+        visited[i]=false;
+    }
+    DFS(v,visited,g);                                       //DO DFS traversal of the mother vertex, if all vertices are reachable,return it else return -1.
+    for(int i=0;i<V;i++){
+        if(visited[i]==false){
+            return -1;
+        }
+    }
+    return v;
+} 
+
