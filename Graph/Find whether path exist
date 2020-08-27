@@ -1,0 +1,29 @@
+bool is_possible(vector<vector<int>> &a, int n) {
+    queue<pair<int, int>> q;
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (a[i][j] == 1) q.push(pair<int, int>(i, j));
+
+    int plusr[4] = {-1, 0, 0, 1};
+    int plusc[4] = {0, -1, 1, 0};
+
+    while (!q.empty()) {
+        int r = q.front().first;
+        int c = q.front().second;
+        q.pop();
+
+        for (int i = 0; i < 4; i++) {
+            int nextr = r + plusr[i];
+            int nextc = c + plusc[i];
+
+            if (nextr < 0 || nextc < 0 || nextr >= n || nextc >= n) continue;
+            if (a[nextr][nextc] == 2) return 1;
+            if (a[nextr][nextc] == 3) {
+                a[nextr][nextc] = 1;
+                q.push(pair<int, int>(nextr, nextc));
+            }
+        }
+    }
+    return 0;
+}
