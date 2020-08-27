@@ -1,0 +1,52 @@
+//BRUTE FORCE APPROACH  O(N2) 
+//APPROACH: I FIND THE MINIMUM MOST ELEMENT FOR A PARTICULAR POSITION AND SWAP IT AND INCREMENT COUNT.
+int minSwaps(int arr[], int N){
+    int count=0;
+    for(int i=0;i<N-1;i++){
+        int min_i=arr[i];
+        int pos=-1;
+        for(int j=i+1;j<N;j++){
+            if(arr[j]<min_i){
+                pos=j;
+                min_i=arr[j];
+            }
+        }
+        if(min_i!=arr[i]){
+            count++;
+            int x=arr[i];
+            arr[i]=min_i;
+            arr[pos]=x;
+        }
+    }
+    return count;
+}
+
+
+//O(NlogN)
+int minSwaps(int arr[],int N){
+      int count=0;                  //final result
+      vector<pair<int,int>> A(N);                 //create a pair for every element and store the value as well as index inside it.
+      for(int i=0;i<N;i++){
+            A[i].first=arr[i].first; 
+            A[i].second=arr[i].second;
+      }
+      
+      sort(A.begin(),A.end());                //sort the A vector
+      for(int i=0;i<N;i++){
+            if(visited[i]==1 || arr[i].second==i){continue;}    //if already viisted the element or the second element is in the right position      
+            int j=i;
+            int cycle_size=0;                     //calculate the number of elements in the cycle.
+            while(!visited[j]){
+                visited[j]=1;                   //mark as visited
+                j=arr[j].second();              // move the element to the next position according to the value depicted by the second element
+                cycle_size++;
+            }
+          if(cycle_size>0){
+            count+=cycle_size;
+          }
+      
+      }
+return count;
+}
+
+
