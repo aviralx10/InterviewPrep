@@ -1,0 +1,18 @@
+//BACKTRACKING ALGO TIME COMPLEXITY: O(N)
+
+int countPaths2(list<int> g[], int V, int s, int d){
+    if(s==d){return 1;}
+    int count=0;
+    for(int j: g[s]){
+            count+=countPaths2(g,V,j,d);
+    }
+    return count;
+}
+int countPaths(list<int> g[], int V, int s, int d) {
+    if(s==d){return 1;}
+    int count=0;
+    for(int j: g[s]){
+            count+=countPaths2(g,V,j,d);
+    }
+    return count;
+}
