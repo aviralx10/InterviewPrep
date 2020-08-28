@@ -1,0 +1,25 @@
+//TIME COMPLEXITY - BFS(E+V) 
+//SPACE COMPLEXITY - O(V)   //DUE TO VISITING ARRAY
+
+int levels(vector<int> g[], int N, int X)
+{
+    queue<pair<int,int>> q;                   //WOULD STORE THE ELEMENT AS WELL AS THEIR LEVEL 
+    map<int,int> m;                           //WOULD STORE THE UNIQUE ELEMENTS AND THEIR LEVEL
+    q.push({0,0});                            //FIRST ELEMENT
+    vector<int> vis(N,0);                     //VISITED ARRAY HERE TO CHECK IF THE NODE WE VISIT IS ALREADY VISITED OR TO BE VISITED
+    vis[0]=1;                               //MARK FIRST ELEMENT AS VISITED
+    while(!q.empty()){
+        int x=q.front().first;                //POP THE FIRST ELEMENT 
+        int y=q.front().second;                 //POP THE SECOND ELEMENT
+        m[x]=y;                                 //STORE VALUE IN MAP
+        q.pop();
+        for(int j:g[x]){                      //EXPLORE THE CHILDREN OF THAT NODE USING BFS
+            if(vis[j]==0){                    //IF UNVISITED, THEN MARK AS VISITED AND PUSH ELEMENT AS WELL AS ITS LEVEL INSIDE THE QUEUE.
+                q.push({j,y+1});
+                vis[j]=1;
+            }
+        }
+    }
+    if(m.find(X)==m.end()){return -1;}            //IF ELEMENT TO BE SEARCHED IS NOT INSIDE THE GRAPH RETURN -1
+    return m[X];                                //RETURN LEVEL
+}
