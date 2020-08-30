@@ -1,0 +1,80 @@
+//BRUTE FORCE APPROACH: WE WILL USE A RES 2D MATRIX TO STORE THE FINAL VALUE. WE USE USE X ARRAY TO STORE THE I,J VALUE OF THE ELEMENTS HAVING VALUE 1 AND THEN
+// STORE ITS VALUE INSIDE THE RES AS 0. FOR MAT[I][J]==0, WHAT WE WANT IS TO CHECK FOR EACH 1TH ELEMENT INSIDE THE ARRAY AND WE CALCULATE THE NEAREST CELL HAVING 
+//VALUE AS 1 BY TRAVERSING THE X ARRAY.
+// TC: O(N*M*(SIZE OF X))
+
+
+vector <vector <int> > nearest(vector<vector<int>> &mat, int N, int M) {
+    vector<pair<int,int>> x;
+    vector<vector<int> > res(N, vector<int> (M,0));
+    for(int i=0;i<N;i++){
+        for(int j=0;i<M;i++){
+            if(mat[i][j]==1){
+                x.push_back({i,j});
+                res[i][j]=0;
+            }
+        }
+    }
+    for(int i=0;i<N;i++){
+        for(int j=0;j<M;j++){
+            if(mat[i][j]==0){
+                int min_v=INT_MAX;
+                for(int z=0;z<x.size();z++){
+                    min_v=min(min_v,(i-x[z].first)+(j-x[z].second));
+                }
+                res[i][j]=min_v;
+            }
+        }
+    }
+    return res;
+}
+
+//OPTIMISED APPOROACH: tc O(N*M)
+//Create a graph with values assigned from 1 to M*N to all vertices. The purpose is to store position and adjacent information.
+//Create an empty queue.
+//Traverse all matrix elements and insert positions of all 1s in queue.
+//Now do a BFS traversal of graph using above created queue.
+//Run a loop till the size of the queue is greater than 0 then extract the front node of the queue and remove it 
+//and insert all its adjacent and unmarked elements. Update the minimum distance as distance of current node +1 and insert the element in the queue.
+
+vector <vector <int> > nearest(vector<vector<int>> &mat, int N, int M) {
+    vector<vector<int> > visited(N,vector<int> (M,0));
+    vector<vector<int> > res(N,vector<int> (M,INT_MAX));
+    queue<pair<int,int>> q;
+    for(int i=0;i<N;i++){
+        for(int j=0;j<M;j++){
+            if(mat[i][j]==1){
+                res[i][j]=0;
+                visited[i][j]=1;
+                q.push({i,j});                    //push the  element having value 1 inside the queue.
+            }
+        }
+    }
+    while(!q.empty()){
+        int x=q.front().first;
+        int y=q.front().second;         /pop the first element of the queue and check all the dorections 
+        q.pop();
+        if(x>0 && visited[x-1][y]==0){                                //check for the top element and include it in the solution
+            visited[x-1][y]=1;
+            res[x-1][y]=min(res[x-1][y],res[x][y]+1);
+            q.push({x-1,y});
+        }
+        if(x<N-1 && visited[x+1][y]==0){                              //check for the bottom element and include it in the solution
+            visited[x+1][y]=1;
+            res[x+1][y]=min(res[x+1][y],res[x][y]+1);
+            q.push({x+1,y});
+        }
+        if(y>0 && visited[x][y-1]==0){                              //check for the leftmost element and include it in the solution
+            visited[x][y-1]=1;
+            res[x][y-1]=min(res[x][y-1],res[x][y]+1);
+            q.push({x,y-1});
+        }
+        if(y<M-1 && visited[x][y+1]==0){                            //check for the rigtmost element and include it in the solution
+            visited[x][y+1]=1;
+            res[x][y+1]=min(res[x][y+1],res[x][y]+1);
+            q.push({x,y+1});
+        }
+        
+    }
+    return res;
+}
