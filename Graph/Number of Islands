@@ -1,0 +1,49 @@
+void dfs(vector<int> A[],int x,int y,int N, int M,vector<vector<int>> &visited){
+    if(x>0 && A[x][y]==1 && visited[x-1][y]==0 ){              //up
+        visited[x-1][y]=1;
+        dfs(A,x-1,y,N,M,visited);
+    }
+    if(x<N-1 && visited[x+1][y]==0 && A[x][y]==1){            //down
+        visited[x+1][y]=1;
+        dfs(A,x+1,y,N,M,visited);
+    }
+    if(y>0 && visited[x][y-1]==0 && A[x][y]==1){              //left
+         visited[x][y-1]==1;
+         dfs(A,x,y-1,N,M,visited);
+    }
+    if(y<M-1 && visited[x][y+1]==0 && A[x][y]==1){            //right
+         visited[x][y+1]==1;
+         dfs(A,x,y+1,N,M,visited);
+    }
+    if(x>0 && y>0 && visited[x-1][y-1]==0 && A[x][y]==1){     //upper left
+        visited[x-1][y-1]==1;
+        dfs(A,x-1,y-1,N,M,visited);
+    }
+    if(x<N-1 && y>0 && visited[x+1][y-1]==0 && A[x][y]==1){           //bottom left
+        visited[x+1][y-1]==1;
+        dfs(A,x+1,y-1,N,M,visited);
+    }
+    if(x>0 && y<M-1 && visited[x-1][y+1]==0 && A[x][y]==1){   //upper right
+        visited[x-1][y+1]=1;
+        dfs(A,x-1,y+1,N,M,visited);
+    }
+    if(x<N-1 && y<M-1 && visited[x+1][y+1]==0 && A[x][y]==1){         //botttom right
+        visited[x+1][y+1]==1;
+        dfs(A,x+1,y+1,N,M,visited);
+    }
+    return;
+}
+int findIslands(vector<int> A[], int N, int M) {
+    vector<vector<int> > visited(N,vector<int> (M,0));
+    int count=0;
+    for(int i=0;i<N;i++){
+        for(int j=0;j<M;j++){
+            if(A[i][j]==1 && visited[i][j]==0){
+                visited[i][j]=1;
+                dfs(A,i,j,N,M,visited);
+                count++;
+            }
+        }
+    }
+    return count;
+}
