@@ -1,0 +1,41 @@
+Steps involved in finding the topological ordering of a DAG:
+
+Step-1: Compute in-degree (number of incoming edges) for each of the vertex present in the DAG and initialize the count of visited nodes as 0.
+
+Step-2: Pick all the vertices with in-degree as 0 and add them into a queue (Enqueue operation)
+
+Step-3: Remove a vertex from the queue (Dequeue operation) and then.
+
+Increment count of visited nodes by 1.
+Decrease in-degree by 1 for all its neighboring nodes.
+If in-degree of a neighboring nodes is reduced to zero, then add it to the queue.
+Step 4: Repeat Step 3 until the queue is empty.
+
+Step 5: If count of visited nodes is not equal to the number of nodes in the graph then the topological sort is not possible for the given graph.
+
+vector<int> topoSort(int V, vector<int> adj[]) {
+    vector<int> indegree(V,0);
+    for(int i=0;i<V;i++){
+        int x=0;
+        for(int j: adj[i]){
+            indegree[j]++;
+        }
+    }
+    queue<int> q;
+    for(int i=0;i<V;i++){
+        if(indegree[i]==0){q.push(i);}
+    }
+    int count=0;
+    vector<int> res;
+    while(!q.empty()){
+        int x=q.front();
+        q.pop();
+        res.push_back(x);
+        count++;
+        for(int j:adj[x]){
+            indegree[j]--;
+            if(indegree[j]==0){q.push(j);}
+        }
+    }    
+    return res;    
+}
