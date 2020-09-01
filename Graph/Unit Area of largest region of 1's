@@ -1,0 +1,37 @@
+bool isSafe(int i,int j,int N,int M){
+    if(i>=0 && i<N && j>=0 && j<M){return true;}
+    return false;
+}
+int DFS(vector<vector<bool>> visited,int N,int M,vector<vector<int>> A,int i,int j){
+    
+    int dx[] = {-1,-1,-1,0,0,1,1,1}; 
+    int dy[] = {-1,0,1,-1,1,-1,0,1}; 
+    visited[i][j]=true;
+    int area=1;
+    
+    for(int z=0;z<8;z++){
+        if(isSafe(i+dx[z],j+dy[z],N,M) && visited[i+dx[z]][j+dy[z]]==false && A[i+dx[z]][j+dy[z]]==1) {
+            area+=DFS(visited,N,M,A,i+dx[z],j+dy[z]);
+        }
+    }
+    return area;
+}
+int findMaxArea(int N, int M, int A[SIZE][SIZE] )
+{
+    int max_Area=0;
+    vector<vector<bool>> visited(N,vector<bool>(M,false));
+    vector<vector<int>> temp(N,vector<int> (M,0));
+    for(int i=0;i<N;i++){
+        for(int j=0;j<M;j++){
+            temp[i][j]=A[i][j];
+        }
+    }
+    for(int i=0;i<N;i++){
+        for(int j=0;j<M;j++){
+            if(visited[i][j]==false && A[i][j]==1){
+                max_Area=max(max_Area,DFS(visited,N,M,temp,i,j));
+            }
+        }
+    }
+    return max_Area;
+}
