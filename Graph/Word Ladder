@@ -1,0 +1,30 @@
+bool isdiff(string temp,string y){
+    int count=0;
+    int n=temp.length();
+    for(int i=0;i<n;i++){
+        if(temp[i]!=y[i]){count++;}
+        if(count>1){return false;}
+    }
+    if(count==1){return true;}
+    return false;
+}
+int WordLadderLength(string start, string target, set<string>& D)
+{
+    queue<pair<string,int>> q;
+    q.push({start,1});
+    D.erase(start);
+    while(!q.empty()){
+        string temp=q.front().first;
+        int len=q.front().second;
+        q.pop();
+        for(auto i: D){
+            string y=i;
+            if(isdiff(temp,y)){
+                q.push({y,len+1});
+                D.erase(y);
+                if(y==target){return q.back().second;}
+            }
+        }
+    }
+    return 0;
+}
