@@ -1,3 +1,4 @@
+TC: O(N*M*4^Word_Length)
 bool search(vector<vector<char> >& board,int i,int j,int count,string word){
     if(count==word.length()){return true;}
     
