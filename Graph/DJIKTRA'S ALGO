@@ -1,0 +1,31 @@
+space complexity:O(v2)
+time complexity:O(v)
+
+
+int minKey(int V,vector<bool> dset,vector<int> res){
+    int min_v=INT_MAX;
+    int min_i;
+    for(int i=0;i<V;i++){
+        if(dset[i]==false && res[i]<=min_v){
+            min_v=res[i];
+            min_i=i;
+        }
+    }
+    return min_i;
+}
+vector <int> dijkstra(vector<vector<int>> g, int src, int V)
+{
+    vector<int> res(V,INT_MAX);
+    vector<bool> dset(V,false);
+    res[src]=0;                   //source distance to itself is 0
+    for(int i=0;i<V-1;i++){
+        int u=minKey(V,dset,res);
+        dset[u]=true;
+        for(int v=0;v<V;v++){
+            if(g[u][v] && dset[v]==false && res[u]+g[u][v]<res[v]){
+                res[v]=res[u]+g[u][v];
+            }
+        }
+    }
+    return res;             //return the final distance of all the vertices from the source vertex.
+}
