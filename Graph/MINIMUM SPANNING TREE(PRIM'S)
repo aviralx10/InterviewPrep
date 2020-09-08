@@ -1,0 +1,41 @@
+//time complexity- O(V2) 
+
+//RETURN THE INDEX OF THE MINIMUM EDGE VALUE
+int minKey(int v,vector<bool> mstSet,vector<int> key){
+    int min_val=INT_MAX;
+    int min_i;
+    for(int i=0;i<v;i++){
+        if(mstSet[i]==false && key[i]<min_val){
+            min_val=key[i];
+            min_i=i;
+        }
+    }
+    return min_i;
+}
+//CALCULATES THE FINAL COST
+int cost(vector<int> parent,vector<vector<int>> graph,int V){
+    int sum=0;
+    for(int i=1;i<V;i++){
+        sum+=graph[i][parent[i]];
+    }
+    return sum;
+}
+int spanningTree(int V, int E, vector<vector<int>> &graph) {
+   vector<bool> mstSet(V,false);        //TO SEE WHICH VERTICES SHOULD BE INCLUDED AND WHICH SHOULD NOT BE
+   vector<int> parent(V,0);             //TO SEE WHICH VERTICES HAVE WHICH PARENTS
+   vector<int> key(V,INT_MAX);          //to store the value of the edges of the vertices included.
+   parent[0]=-1;
+   key[0]=0;
+   for(int i=0;i<V-1;i++){
+       int u=minKey(V,mstSet,key);
+       mstSet[u]=true;
+       for(int v=0;v<V;v++){
+           if(graph[u][v]!=INT_MAX && mstSet[v]==false && graph[u][v]<key[v]){
+               key[v]=graph[u][v];
+               parent[v]=u;
+           } 
+       }
+   }
+   
+   return cost(parent,graph,V);
+}
