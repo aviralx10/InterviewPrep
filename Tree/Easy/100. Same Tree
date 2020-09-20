@@ -40,14 +40,14 @@ public:
             TreeNode* q=t.front();
             t.pop();
             if(p->left || q->left){
-            if(!ischeck(p->left,q->left)){return false;}
-            t.push(p->left);
-            t.push(q->left);
+                if(!ischeck(p->left,q->left)){return false;}
+                t.push(p->left);
+                t.push(q->left);
             }
             if(p->right || q->right){
-            if(!ischeck(p->right,q->right)){return false;}
-            t.push(p->right);
-            t.push(q->right);
+                if(!ischeck(p->right,q->right)){return false;}
+                t.push(p->right);
+                t.push(q->right);
             }
         }
         return true;
