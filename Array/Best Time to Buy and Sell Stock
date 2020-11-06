@@ -1,0 +1,33 @@
+//BRUTE FORCE -> TC: O(N2) , SC: O(1)
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        int maxProfit=0;
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                if(prices[j]-prices[i]>maxProfit){
+                    maxProfit=prices[j]-prices[i];
+                }
+            }
+        }
+        return maxProfit;
+    }
+};
+//OPTIMISED VERSION -> TC: O(N) , SC:O(1)
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        int minprice=INT_MAX;
+        int maxProfit=0;
+        for(int i=0;i<n;i++){
+            if(prices[i]<minprice){
+                minprice=prices[i];
+            }else if(prices[i]-minprice>maxProfit){
+                maxProfit=prices[i]-minprice;
+            }
+        }
+        return maxProfit;
+    }
+};
