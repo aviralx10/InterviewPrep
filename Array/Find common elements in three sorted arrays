@@ -1,0 +1,61 @@
+//BRUTE FORCE
+class Solution
+{
+    public:    
+       vector <int> commonElements (int A[], int B[], int C[], int n1, int n2, int n3)
+        {
+            vector<int> res;
+            int i=0;
+            int j=0;
+            int k=0;
+            set<int> s;
+            while((i<n1) && (j<n2)){
+                if(A[i]==B[j]){
+                    if(s.find(A[i])==s.end()){res.push_back(A[i]);s.insert(A[i]);}
+                    i++;j++;
+                }else if(A[i]>B[j]){
+                    j++;
+                }else{
+                    i++;
+                }
+            }
+            int d=0;
+            vector<int> final;
+            while((d<res.size())&&(k<n3)){
+                if(res[d]==C[k]){
+                    final.push_back(C[k]);
+                    d++;k++;
+                }else if(res[d]>C[k]){
+                    k++;
+                }else{
+                    d++;
+                }
+            }
+            return final;
+        }
+
+};
+
+//OPTIMISED
+ int i = 0, j = 0, k = 0; 
+  
+    // Iterate through three arrays while all arrays have elements 
+    while (i < n1 && j < n2 && k < n3) 
+    { 
+         // If x = y and y = z, print any of them and move ahead  
+         // in all arrays 
+         if (ar1[i] == ar2[j] && ar2[j] == ar3[k]) 
+         {   cout << ar1[i] << " ";   i++; j++; k++; } 
+  
+         // x < y 
+         else if (ar1[i] < ar2[j]) 
+             i++; 
+  
+         // y < z 
+         else if (ar2[j] < ar3[k]) 
+             j++; 
+  
+         // We reach here when x > y and z < y, i.e., z is smallest 
+         else
+             k++; 
+    }
