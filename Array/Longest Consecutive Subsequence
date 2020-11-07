@@ -1,0 +1,48 @@
+//SORTED APPROACH -> TC-> O(NLOGN), SC->O(1)
+//FIRST SORT THE ARRAY AND ONLY PUSH THE DISTINCT ELEMENTS INSIDE THE VECTOR
+//CHECK IF THE PARTICULAR ELEMENT IS CONSECUTIVE TO THE PREVIOUS ELEMENT AND UPDATE THE COUNT
+int findLongestConseqSubseq(int arr[], int N)
+{
+  sort(arr,arr+N);
+  vector<int> v;
+  v.push_back(arr[0]);
+  for(int i=1;i<N;i++){
+      if(arr[i]!=arr[i-1]){
+          v.push_back(arr[i]);
+      }
+  }
+  int ans=0;
+  int count=0;
+  for(int i=0;i<v.size();i++){
+      if(i>0 && v[i]==v[i-1]+1){
+          count++;
+      }else{
+          count=1;
+      }
+      ans=max(ans,count);
+  }
+  return ans;
+}
+
+//OPTIMISED SET APPROACH-> TC->O(N), SC->O(N)
+//STORE ALL THE DISTINCT ELEMENTS IN A SET AND ITERATE OVER THEM
+//IF THE PARTICULAR ELEMENT HAS NO PREDECESSOR, THEN IT IS THE FIRST ELEMENT OF THE CONSECUTIVE SUBSEQUENCE AND CHECK ALL ITS SUCCESSORS IN THE SET
+//CHECK THE COUNT AND RETURN THE COUNT OF THE SUBARRAY WITH MAX SIZE
+int findLongestConseqSubseq(int arr[], int N)
+{
+    set<int>s;
+    for(int i=0;i<N;i++){
+        s.insert(arr[i]);
+    }
+    int ans=0;
+    for(int i=0;i<N;i++){
+        if(s.find(arr[i]-1)==s.end()){
+            int j=arr[i];
+            while(s.find(j)!=s.end()){
+                j++;
+            }
+            ans=max(ans,j-arr[i]);
+        }
+    }
+    return ans;
+}
