@@ -1,0 +1,55 @@
+//METHOD 1: SC->O(N), TC-> O(N)
+void threeWayPartition(vector<int>& array,int a, int b)
+    {
+        vector<int> l;
+        vector<int> m;
+        vector<int> r;
+        for(int i=0;i<array.size();i++){
+            if(array[i]<a){
+                l.push_back(array[i]);
+            }else if(array[i]>=a && array[i]<=b){
+                m.push_back(array[i]);
+            }else{
+                r.push_back(array[i]);
+            }
+        }
+        vector<int> final;
+        for(int i=0;i<l.size();i++){
+            final.push_back(l[i]);
+        }
+        for(int i=0;i<m.size();i++){
+            final.push_back(m[i]);
+        }
+        for(int i=0;i<r.size();i++){
+            final.push_back(r[i]);
+        }
+        array=final;
+    }
+
+//METHOD 2: SC->O(1), TC-> O(N)
+void threeWayPartition(int arr[], int n, 
+                int lowVal, int highVal) 
+{ 
+    // Initialize ext available positions for 
+    // smaller (than range) and greater lements 
+    int start = 0, end = n-1; 
+  
+    // Traverse elements from left 
+    for (int i=0; i<=end;) 
+    { 
+        // If current element is smaller than 
+        // range, put it on next available smaller 
+        // position. 
+        if (arr[i] < lowVal) 
+            swap(arr[i++], arr[start++]); 
+  
+        // If current element is greater than 
+        // range, put it on next available greater 
+        // position. 
+        else if (arr[i] > highVal) 
+            swap(arr[i], arr[end--]); 
+  
+        else
+            i++; 
+    } 
+} 
