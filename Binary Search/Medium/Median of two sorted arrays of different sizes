@@ -1,1 +1,18 @@
 Same logic as median of two sorted array of same size
+In addition to that there are more basic corner cases:
+If the size of smaller array is 0. Return the median of a larger array.
+IF SIZE IS 1-
+-The size of the larger array is also 1. Return the median of two elements.
+-If the size of the larger array is odd. Then after adding the element from 2nd array, it will be even so the median will be an average of two mid elements. So the element from the smaller array will affect the median if and only if it lies between (m/2 – 1)th and (m/2 + 1)th element of the larger array. So, find the median in between the four elements, the element of the smaller array and (m/2)th, (m/2 – 1)th and (m/2 + 1)th element of a larger array
+-Similarly, if the size is even, then check for the median of three elements, the element of the smaller array and (m/2)th, (m/2 – 1)th element of a larger array
+IF SIZE IS 2-
+-If the larger array also has two elements, find the median of four elements.
+-If the larger array has an odd number of elements, then the median will be one of the following 3 elements
+  1.Middle element of larger array
+  2.Max of the first element of smaller array and element just before the middle, i.e M/2-1th element in a bigger array
+  3.Min of the second element of smaller array and element just after the middle in the bigger array, i.e M/2 + 1th element in the bigger array
+-If the larger array has even number of elements, then the median will be one of the following 4 elements
+  1. The middle two elements of the larger array
+  2.Max of the first element of smaller array and element just before the first middle element in the bigger array, i.e M/2 – 2nd element
+  3.Min of the second element of smaller array and element just after the second middle in the bigger array, M/2 + 1th element
+
