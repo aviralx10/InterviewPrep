@@ -1,0 +1,15 @@
+int res(int A[],int n,int x){
+    int l=0;
+    for(int i=1;i<=n;i++){          //for length
+	        for(int j=0;j<=n-i;j++){      //for selecting different indices of array
+	            int sum=0;
+	            for(int k=j;k<=(j+i-1);k++){    //counting sum loop for a particular range
+	                sum+=A[k];
+	                if(sum>x){
+	                    return i;
+	                }
+	            }
+	        }
+	 }
+	 return 0;
+}
