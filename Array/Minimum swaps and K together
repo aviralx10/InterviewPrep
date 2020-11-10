@@ -1,0 +1,16 @@
+//O(n) 
+int minSwaps(int A[],int n,int k){
+    int ans=0;
+    int x=0;
+    int y=n-1;
+    while(x<y){
+        if(A[x]<k && x<y){x++;}
+        if(A[y]>k && x<y){y--;}
+        if(A[x]>k && A[y]<=k && x<y){
+            ans++;
+            x++;
+            y--;
+        }
+    }
+    return ans;
+}
