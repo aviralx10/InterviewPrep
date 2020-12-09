@@ -1,0 +1,16 @@
+bool myWay(Job arr1,Job arr2){
+    return arr1.profit>arr2.profit;
+}
+pair<int,int> JobScheduling(Job arr[], int n) 
+{ 
+    sort(arr,arr+n,myWay);
+    int count=1;
+    int profit=arr[0].profit;
+    for(int i=1;i<n;i++){
+        if(count<arr[i].dead){
+            count++;
+            profit+=arr[i].profit;
+        }
+    }
+    return make_pair(count,profit);
+} 
