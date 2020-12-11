@@ -1,0 +1,18 @@
+bool compare(Item arr1,Item arr2){
+    return ((double)arr1.value/(double)arr1.weight)>((double)arr2.value/(double)arr2.weight);
+}
+// function to return fractionalweights
+double fractionalKnapsack(int W, Item arr[], int n)
+{
+    double res=0.0;
+    sort(arr,arr+n,compare);
+    int i=0;
+    while(i<n ){
+        if(W==0){break;}
+        int quant=min(arr[i].weight,W);
+        res+=((arr[i].value/arr[i].weight)*quant);
+        i++;
+        W-=quant;
+    }
+    return res;
+}
