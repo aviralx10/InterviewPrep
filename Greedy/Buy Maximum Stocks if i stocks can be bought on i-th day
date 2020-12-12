@@ -1,0 +1,25 @@
+//since we want the maximum amount of stocks (and not value associated with these stocks), therefore we will use greedy approach.
+//we sort the array in terms of ascending prices in order to get maximise our stock count. If prices are same, then we sort according to days.
+int buyMaximumProducts(int n, int k, int price[]) 
+{ 
+    vector<pair<int, int> > v; 
+  
+    // Making pair of product cost and number 
+    // of day.. 
+    for (int i = 0; i < n; ++i)  
+        v.push_back(make_pair(price[i], i + 1));     
+  
+    // Sorting the vector pair. 
+    sort(v.begin(), v.end());     
+  
+    // Calculating the maximum number of stock  
+    // count. 
+    int ans = 0; 
+    for (int i = 0; i < n; ++i) { 
+        ans += min(v[i].second, k / v[i].first); 
+        k -= v[i].first * min(v[i].second,  
+                               (k / v[i].first)); 
+    } 
+  
+    return ans; 
+}
