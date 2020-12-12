@@ -1,3 +1,6 @@
+//Total platforms at any time can be obtained by
+//subtracting total departures from total arrivals
+//by that time
 // EFFICIENT APPROACH
 int findPlatform(int arr[], int dep[], int n)
 {
