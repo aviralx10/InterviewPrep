@@ -1,0 +1,25 @@
+int minCost(vector<int> v,int k){
+    int cost=0;
+    sort(v.begin(),v.end());
+    int n=v.size();
+    int i=0;
+    while(i<n){
+        
+        cost+=v[i];
+        n=n-k;
+        i++;
+    }
+    return cost;
+}
+int maxCost(vector<int> v,int k){
+    int cost=0;
+    sort(v.begin(),v.end(),greater<int>());
+    int n=v.size();
+    int i=0;
+    while(i<n ){
+        cost+=v[i];
+        n=n-k;
+        i++;
+    }
+    return cost;
+}
