@@ -1,0 +1,49 @@
+// EFFICIENT APPROACH
+int findPlatform(int arr[], int dep[], int n)
+{
+	
+    sort(arr,arr+n);
+    sort(dep,dep+n);
+	  int a=1;
+	  int d=0;
+	  int plat=1;
+	  int res=1;
+	  while(a<n && d<n){
+	      if(arr[a]>=dep[d]){
+	          d++;
+	          res--;
+	      }else if(arr[a]<dep[d]){
+	          a++;
+	          res++;
+	      }
+	      plat=max(plat,res);
+	  }
+	  return plat;
+}
+
+//ANOTHER APPROACH
+bool compare(pair<int,int> p1,pair<int,int> p2){
+    return p1.first<p2.first;
+}
+int findPlatform(int arr[], int dep[], int n)
+{
+	vector< pair<int,int> > v;
+	for(int i=0;i<n;i++){
+	    v.push_back({arr[i],1});
+	    v.push_back({dep[i],0});
+	}
+	sort(v.begin(),v.end(),compare);
+// 	for(int i=0;i<v.size();i++){
+// 	    cout<<v[i].first<<" ";
+// 	}
+	//cout<<endl;
+	int a=0;
+	int d=0;
+	int maxDiff=1;
+	for(int i=0;i<v.size();i++){
+	    if(v[i].second==1){a++;}
+	    else{d++;}
+	    maxDiff=max(maxDiff,a-d);
+	}
+	return maxDiff;
+}
