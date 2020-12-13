@@ -1,0 +1,26 @@
+//O(n) - EXTENSION TO MAX SUBARRAY (kadane's algo problem) 
+//We will use two variables..max_p and min_p to calculate the max and the min product of the array at a particular position and swap them 
+//if we encounter a negative variable.
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int max_p=nums[0];
+        int min_p=nums[0];
+        int best=nums[0];
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]<0){                                //if we encounter a negative number,we swap the minimum and the maximum number
+                int k=max_p;                              //so that the max_p still remanins the maximum product amongst the two.. a>b, -a<-b
+                max_p=min_p;
+                min_p=k;
+            }
+            max_p=max(nums[i],max_p*nums[i]);
+            min_p=min(nums[i],min_p*nums[i]);
+            best=max(best,max_p);
+        }
+        return best;
+    }
+};
+//ANOTHER SOLUTION
+If there are even number of negative numbers and no zeros, result is simply product of all
+If there are odd number of negative numbers and no zeros, result is product of all except the negative integer with the least absolute value.
+If there are zeros, result is product of all except these zeros with one exceptional case. The exceptional case is when there is one negative number and all other elements are 0. In this case, result is 0.
