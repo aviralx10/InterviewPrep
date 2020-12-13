@@ -1,0 +1,20 @@
+//PRIORITY QUEUE TAKES O(N) TIME , WHILE NORMAL SORTING WOULD HAVE TAKEN O(NLOGN) TIME
+
+long long maxSum(vector<long long> arr, long long n) 
+{   
+  // Sort the array 
+  priority_queue <long long, vector<long long>, greater<long long> > pq;
+  for(int i=0;i<n;i++){
+      pq.push(arr[i]);
+  }
+  
+  
+  // Finding the sum of arr[i]*i 
+  long long sum = 0; 
+  for (long long i = 0; i < n; i++){
+      long long temp=pq.top();
+      pq.pop();
+      sum+=(temp)%(MOD);
+  }
+  return sum%(MOD); 
+} 
