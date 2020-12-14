@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+long long countchoc(long long n,vector<long long> v,long long m){
+    long long res=LLONG_MAX;
+    sort(v.begin(),v.end());
+    long long i=m-1;
+    long long j=0;
+    while(i<n){
+        res=min(res,v[i]-v[j]);
+        i++;
+        j++;
+    }
+    return res;
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    long long n;
+	    cin>>n;
+	    vector<long long> v(n);
+	    long long m;
+	    for(long long i=0;i<n;i++){
+	        cin>>v[i];
+	    }
+	    cin>>m;
+	    cout<<countchoc(n,v,m)<<endl;
+	}
+}
