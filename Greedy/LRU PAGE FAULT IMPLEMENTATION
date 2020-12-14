@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+int pageFault(int n,vector<int> v,int c){
+    int res=0;
+    queue<int> q;
+    set<int> m;
+    for(int i=0;i<c;i++){
+        if(m.find(v[i])==m.end()){
+            m.insert(v[i]);
+            q.push(v[i]);
+            res++;
+        }
+    }
+    for(int j=c;j<n;j++){
+        if(m.find(v[j])==m.end()){
+            int temp=q.front();
+            q.pop();
+            m.erase(temp);
+            res++;
+            m.insert(v[j]);
+            q.push(v[j]);
+        }
+    }
+    return res;
+}
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        while(t--){
+            int n;
+            vector<int> v(n);
+            for(int i=0;i<n;i++){
+                cin>>v[i];
+            }
+            int c;
+            cin>>c;
+            cout<<pageFault(n,v,c);
+        }
+    }
+}
