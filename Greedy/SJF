@@ -1,0 +1,21 @@
+//NON PREMPTIVE
+1. sort all the elements using minimum arrival time and min burst time.
+2. select the process with the min arrival time.
+3. after the 2nd process, take those elements having the min burst time(this can be done either using sort(nlogn) or using min heap(o(n)).
+
+
+//PREMPTIVE
+1- Traverse until all process gets completely
+   executed.
+   a) Find process with minimum remaining time at
+     every single time lap.
+   b) Reduce its time by 1.
+   c) Check if its remaining time becomes 0 
+   d) Increment the counter of process completion.
+   e) Completion time of current process = 
+     current_time +1;
+   e) Calculate waiting time for each completed 
+     process.
+   wt[i]= Completion time - arrival_time-burst_time
+   f)Increment time lap by one.
+2- Find turnaround time (waiting_time+burst_time).
