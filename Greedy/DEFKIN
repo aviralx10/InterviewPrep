@@ -1,0 +1,33 @@
+//CAN BE SOLVED BY  FINDING THE MAX DIFFERENCE BETWEEN ROWS AND COLUMNS AND THEN MULTIPLYING THEM
+#include<bits/stdc++.h>
+using namespace std;
+long long maxRec(long long r,long long c,long long k,vector<pair<long long,long long>> x){
+  long long res=0;
+  long long rDif=LLONG_MIN;
+  long long cDif=LLONG_MIN;
+  for(int i=0;i<x.size()-1;i++){
+    rDiff=max(rDiff,x[i].first-x[i+1].first);
+    cDiff=max(rDiff,x[i].second-x[i+1].second);
+  }
+  res=(rDiff-1)(cDiff-1);
+  return res;
+}
+int main(){
+  int t;
+  cin>>t;
+  while(t--){
+    long long r,c,k;
+    cin>>r>>c>>k;
+    vector<pair<long long,long long>> x;
+    x.push_back(make_pair(0,0));
+    for(int i=0;i<k;i++){
+      long long a,b;
+      cin>>a>>b;
+      x.push_back(make_pair(a,b));
+    }
+    x.push_back(make_pair(r+1,c+1));
+    cout<<maxRec(r,c,k,x);
+  }
+
+
+}
