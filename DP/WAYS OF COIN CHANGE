@@ -1,0 +1,26 @@
+class Solution
+{
+  public:
+    long long int count( int S[], int m, int n )
+    {
+        sort(S,S+m);
+        vector<vector<long long> > ways(m+1,vector<long long >(n+1));
+        for(int j=1;j<=n;j++){
+            ways[0][j]=0;
+        }
+        for(int i = 0; i <= m; i++) {             //if amount=0 then only 1 way to form it-> by not selecting it.
+            ways[i][0] = 1;
+        }        
+       for(int i=1;i<=m;i++){               //main logic
+            for(int j=1;j<=n;j++){
+                  if(j<S[i-1]){                   
+                     ways[i][j]=ways[i-1][j];    
+                  }
+                  else if(j>=S[i-1]){
+                     ways[i][j]=(ways[i][j-S[i-1]]+ways[i-1][j]);     //amount=5     coins={1,2,5}
+                  }         //for ex ways(5) =ways(3)[by considering 2] + ways(4)[by not considering 2]
+             }
+        }
+      return ways[m][n];  
+    }
+};
