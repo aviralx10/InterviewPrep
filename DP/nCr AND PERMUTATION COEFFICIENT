@@ -25,3 +25,8 @@ public:
         return dp[r][n];
     }
 };
+
+
+//Permutation Coefficient
+SAME AS ABOVE:
+P[i][j] = P[i - 1][j] + (j * P[i - 1][j - 1]); 
