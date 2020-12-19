@@ -1,0 +1,26 @@
+int maxSumIS(int a[], int n)  
+	{  
+	    int count=0;
+        int max_ele=-32768;
+        int dp[n];
+        int sum[n];
+        dp[0]=1;
+        sum[0]=a[0];
+        for(int i=1;i<n;i++){
+            int x=a[i];
+            dp[i]=1;
+            sum[i]=a[i];
+            for(int j=0;j<i;j++){
+                if(x>a[j]){
+                    dp[i]=max(dp[i],dp[j]+1);
+                    sum[i]=max(sum[i],sum[j]+a[i]);
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(sum[i]>=max_ele){
+                max_ele=sum[i];
+            }
+        }
+        return max_ele;
+	}
