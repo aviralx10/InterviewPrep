@@ -1,0 +1,93 @@
+//PREORDER: SC:O(N), TC: O(N)
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> s;
+        TreeNode* curr=root;
+        while(curr!=NULL || !s.empty()){
+            while(curr!=NULL){
+                res.push_back(curr->val);
+                s.push(curr);
+                curr=curr->left;
+            }
+            curr=s.top();
+            s.pop();
+            curr=curr->right;
+        }
+        return res;
+    }
+};
+
+//INORDER: SC:O(N), TC: O(N)
+class Solution {
+public:
+    
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> s;
+        TreeNode* curr=root;
+        while(curr!=NULL || !s.empty()){
+            while(curr!=NULL){
+                s.push(curr);
+                curr=curr->left;
+            }
+            curr=s.top();
+            s.pop();
+            res.push_back(curr->val);
+            curr=curr->right;
+        }
+        return res;
+    }
+};
+
+//POSTORDER:
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> s;
+        TreeNode* curr=root;
+        while(curr!=NULL || !s.empty()){
+            while(curr!=NULL){
+                s.push(curr);
+                curr=curr->left;
+            }
+            curr=s.top();
+            s.pop();
+            if(curr->val>0){
+                curr->val=-curr->val;
+                s.push(curr);
+                curr=curr->right;
+            }
+            else{
+                res.push_back(-1*curr->val);
+                curr=NULL;
+            }
+        }
+        return res;
+    }
+};
+OR 
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> s;
+        if(root==NULL){return {};}
+        s.push(root);
+        while(!s.empty()){
+            TreeNode* curr=s.top();
+            s.pop();
+            res.push_back(curr->val);
+            if(curr->left){
+                s.push(curr->left);
+            }
+            if(curr->right){
+                s.push(curr->right);
+            }
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
