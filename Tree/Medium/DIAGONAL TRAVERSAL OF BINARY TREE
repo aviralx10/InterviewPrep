@@ -1,0 +1,28 @@
+void diagTra(Node* root,int data,map<int,vector<int> > &x){
+  //base case
+  if(!root){
+    return;
+  }
+  //push node's value
+  x[data].push_back(root->data);
+  
+  //for left child-VERTICAL LEVEL CHANGES BY 1
+  diagTra(root->left,data+1,x);
+  
+  
+  //for right child-VERTICAL LEVEL REMAINS THE SAME
+  diagTra(root->right,data,x);
+
+
+}
+void Diagonal Traversal(Node* root){
+  map<int,vector<int>> x;
+  diagTra(root,0,x);
+  for(auto i:x){
+    vector<int> temp=i.second();
+    for(auto j:temp){
+      cout<<j<<" ";
+    }
+    cout<<endl;
+  }
+}
