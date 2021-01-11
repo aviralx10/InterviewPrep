@@ -1,0 +1,28 @@
+int findSum(Node *root,int &ans){
+  if(root==NULL){
+    return 0;
+  }
+  
+  int temp=root->data+findSum(root->left)+findSum(root->right);
+  ans=max(temp,ans);
+  
+  
+  return temp;
+
+}
+
+int findLargestsumsubtree(Node *root){
+    if(root==NULL){
+      return 0;
+    }
+    
+    int ans=INT_MIN;
+    
+    int x=findsum(root,ans);
+    
+    
+    return ans;
+
+
+
+}
