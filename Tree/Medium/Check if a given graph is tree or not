@@ -1,3 +1,6 @@
+//FOR A GRAPH TO BE A TREE- 1. IT SHOULD NOT CONTAIN ANY CYCLES.
+2. IT SHOULD NOT BE AN UNCONNECTED GRAPH.
+
 bool isCycle(vector<int> g[],vector<int> &visited,int parent){
   visited[parent]=true;
   for(int j: g[parent]){
