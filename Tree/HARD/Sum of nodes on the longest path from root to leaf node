@@ -1,0 +1,27 @@
+void sumLong(Node* root,int len,int sum,int &maxLen,int &maxSum){
+    if(root==NULL){
+        if(maxLen<len){
+            maxLen=len;
+            maxSum=sum;
+        }else if(maxLen==len && maxSum<sum){
+            maxSum=sum;
+        }
+        return;
+    }
+    
+    sumLong(root->left,len+1,sum+root->data,maxLen,maxSum);
+    sumLong(root->right,len+1,sum+root->data,maxLen,maxSum);
+    
+}
+int sumOfLongRootToLeafPath(Node* root)
+{
+	int maxLength=0;
+	int maxSum=-32768;
+	if(root==NULL){
+	    return 0;
+	}
+	
+	sumLong(root,0,0,maxLength,maxSum);
+	return maxSum;
+	
+}
