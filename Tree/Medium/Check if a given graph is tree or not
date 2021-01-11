@@ -1,0 +1,34 @@
+bool isCycle(vector<int> g[],vector<int> &visited,int parent){
+  visited[parent]=true;
+  for(int j: g[parent]){
+    if(visited[j]==0){
+      if(isCycle(g,visited,j){return true;}     //DFS
+    }
+    else if(j!=parent){
+      return true;                            //cycle exists
+    }
+  
+  }
+  
+  return false;                               //cycle does not exists.
+
+
+}
+
+bool isTree(vector<int> g[],int V){
+  vector<int> visited(V,false);
+  
+  if(isCycle(g,visited,parent)){                    //IF CYCLE EXISTS IN THE GRAPH
+    return false;
+  }
+  
+  for(int i=0;i<V;i++){                             //CONDITION FOR A CONNECTED GRAPH
+    if(visited[i]==0){
+      return false;
+    }
+  }
+  
+  return true;
+
+
+}
