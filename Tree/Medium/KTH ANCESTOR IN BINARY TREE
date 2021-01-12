@@ -1,0 +1,35 @@
+bool find(Node* root,int n,vector<Node*> &x){
+    if(root==NULL){
+        return false;
+    }
+    x.push_back(root);
+    if(root->data==n){
+        return true;
+    }
+    
+if((find(root->left,n,x))||find(root->right,n,x)){
+        return true;
+    }
+    
+    x.pop_back();
+    return false;
+}
+int ancestor(Node* root,int n1 ,int k)
+{
+   if(root==NULL){
+       return -1;
+   }
+   vector<Node*> x;
+   if(!find(root,n1,x)){
+       return -1;
+   }
+   x.pop_back() // rempve the element whose ancestor is to found
+   if(k>x.size()){return -1;}
+   for(i=x.size()-1;i>0;i--){
+       if(--k==0){
+        return x[i];
+       }
+   }
+   return -1;
+   
+}
