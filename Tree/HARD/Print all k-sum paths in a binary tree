@@ -1,0 +1,30 @@
+void printVector(const vector<int>& v, int i) 
+{ 
+    for (int j=i; j<v.size(); j++) 
+        cout << v[j] << " "; 
+    cout << endl; 
+}
+void printpath(Node* root,vector<int>&path,int k){
+  if(root==NULL){
+    return ;
+  }
+  path.push_back(root->data);
+  printpath(root->left,path,k);
+  printpath(root->right,path,k);
+  int f=0;
+  for(int i=path.size();i>=0;i--){
+    f+=path[j];
+    if(f==k){
+      print(path,i);
+    }
+  }
+  path.pop_back();
+  
+
+}
+
+void printKPath(Node *root, int k) 
+{ 
+    vector<int> path; 
+    printKPathUtil(root, path, k); 
+} 
