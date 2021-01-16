@@ -1,0 +1,63 @@
+//GFG QUESTION
+struct node *reverse (struct node *head, int k)
+{ 
+    struct node *curr=head;
+    struct node *next=NULL;
+    struct node *prev=NULL;
+    int count=0;
+    while(curr!=NULL && count<k){
+        count++;
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    
+    if(next!=NULL){
+        head->next=reverse(next,k);
+    }
+    else{
+        head->next=NULL;
+    }
+    return prev;                          ///prev is the new head
+}
+//LEETCODE VARIANT QUESTION
+class Solution {
+public:
+    int count(ListNode* head){
+        int x=0;
+        while(head!=NULL){
+            head=head->next;
+            x++;
+        }
+        return x;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k){
+        int c=count(head);
+        if(c/k==0){
+            return head;
+        }
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* next=NULL;
+        int count=0;
+        while(curr!=NULL && count<k){
+            count++;
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        
+        if(next!=NULL){
+            head->next=reverseKGroup(next,k);
+        }
+        if(next==NULL){
+            head->next=NULL;
+        }
+        
+        return prev;
+        
+        
+    }
+};
