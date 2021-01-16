@@ -24,3 +24,20 @@ public:
         return head;
     }
 };
+
+//RECURSION
+Node* head;         //global variable
+Node *reverse(Node* node){
+    if(node==NULL){
+        return NULL;
+    }
+    if(node->next==NULL){
+        head=node;
+        return node;
+    }
+    Node *x=reverse(node->next);
+    x->next=node;
+    node->next=NULL;
+    return node;
+
+}
