@@ -1,0 +1,22 @@
+//brute force
+Use two loops. In the outer loop, pick nodes of the linked list one by one. In the inner loop, check if there exist a node whose value is greater than the picked node. If there exists a node whose value is greater, then delete the picked node. 
+Time Complexity: O(n^2)
+//OPTIMAL METHOD:
+Node *compute(Node *head)
+{
+      Node* temp = head;
+        while(temp != NULL && temp->next != NULL){
+             
+            //Copying next node data into current node
+              //i.e. we are indirectly deleting current node
+            if(temp->data < temp->next->data){
+                temp->data = temp->next->data;
+                temp->next = temp->next->next;
+            }
+            else{
+                  //move to the next node
+                temp = temp->next;
+            }
+        }
+      return head;
+}
