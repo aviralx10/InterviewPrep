@@ -38,6 +38,6 @@ Node *reverse(Node* node){
     Node *x=reverse(node->next);
     x->next=node;
     node->next=NULL;
-    return node;
+    return x;
 
 }
