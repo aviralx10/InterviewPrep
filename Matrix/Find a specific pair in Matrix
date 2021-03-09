@@ -1,0 +1,50 @@
+//WE START BUILDING UP A SOLUTION IN TOP-DOWN FASHION WHEREIN WE USE A MATRIX IN ORDER TO STORE THE MOST MINIMUM ELEMENT AT THAT POINT OF THE ITERATION
+//WE KEEP A VARIABLE MAXVALUE IN ORDER TO STORE THE MAXIMUM DIFFERENCE BETWEEN ELEMENTS AT A SPECIFIC AMOUNT OF TIME
+int findMaxValue(int mat[][N]) 
+{ 
+    //stores maximum value 
+    int maxValue = INT_MIN; 
+  
+    // minArr[i][j] stores min of elements in matrix 
+    // from (0, 0) to (i, j)
+    int minArr[N][N]; 
+  
+   
+    minArr[0][0] = mat[0][0]; 
+  
+    // preprocess last row 
+    int minv = mat[N-1][N-1];  
+    for (int j = 0; j<N-1; j++) 
+    { 
+        if (mat[N-1][j] < minv) 
+            minv = mat[N - 1][j]; 
+        minArr[N-1][j] = minv; 
+    } 
+  
+    // preprocess last column
+    int minv = mat[N-1][N-1];   
+    for (int i = 0; i<N-1; i++) 
+    { 
+        if (mat[i][N-1] < minv) 
+            minv = mat[i][N-1]; 
+        minArr[i][N-1] = minv; 
+    } 
+  
+    for (int i = 0; i<N-1; i++) 
+    { 
+        for (int j = 0; j<N-1; j++) 
+        { 
+            // Update maxValue 
+            if (mat[i][j] - minArr[i-1][j-1] > 
+                                            maxValue) 
+                maxValue = mat[i][j] - minArr[i-1][j-1]; 
+  
+            
+            minArr[i][j] = min(mat[i][j], 
+                               min(maxArr[i][j - 1], 
+                                   maxArr[i - 1][j]) ); 
+        } 
+    } 
+  
+    return maxValue; 
+} 
