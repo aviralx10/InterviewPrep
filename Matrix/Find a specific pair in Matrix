@@ -41,8 +41,8 @@ int findMaxValue(int mat[][N])
   
             
             minArr[i][j] = min(mat[i][j], 
-                               min(maxArr[i][j - 1], 
-                                   maxArr[i - 1][j]) ); 
+                               min(minArr[i][j - 1], 
+                                   minArr[i - 1][j]) ); 
         } 
     } 
   
