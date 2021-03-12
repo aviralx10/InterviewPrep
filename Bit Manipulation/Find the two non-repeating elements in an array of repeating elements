@@ -1,0 +1,26 @@
+1. TAKE XOR OF ALL ARRAY ELEMENTS AND STORE IT IN SUM VARIABLE.
+2. AND THE SUM AND 2'S COMPLIMENT OF SUM.(~(SUM+1)) AND STORE IT IN SET_BIT VARIABLE.
+3. ITERATE OVER THE ARRAY AND IF ARR[I]&SET_BIT==0, Y^=ARR[I], ELSE X^=ARR[I];
+vector<int> singleNumber(vector<int> nums) 
+    {
+        vector<int> res;
+        int set_bit;
+        int x=0;
+        int y=0;
+        int sum=0;
+        for(int i=0;i<nums.size();i++){
+            sum^=nums[i];
+        }
+        set_bit=sum&(~(sum-1));
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]&set_bit){
+                x^=nums[i];
+            }else{
+                y^=nums[i];
+            }
+        }
+        
+        res.push_back(x);
+        res.push_back(y);
+        return res;
+    }
