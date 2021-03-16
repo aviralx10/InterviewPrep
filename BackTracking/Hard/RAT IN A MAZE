@@ -1,0 +1,54 @@
+class Solution{
+    public:
+    bool isSafe(int i,int j,vector<vector<int>> &m,int n){
+        if(i<0 || i>=n || j<0 || j>=n || m[i][j]==0 ){
+            return false;
+        }
+        return true;
+    }
+    void findPathUtil(int i,int j,int n,string &temp,vector<string> &res,vector<vector<int>> &m,vector<vector<bool>> &visited){
+        if(isSafe(i,j,m,n)==false || visited[i][j]==true){
+            return ;
+        }
+        if(i==n-1 && j==n-1){
+            res.push_back(temp);
+            return ;
+        }
+        
+        visited[i][j]=true;
+        //UP
+        if(isSafe(i-1,j,m,n) && visited[i-1][j]==false){
+            temp.push_back('U');
+            findPathUtil(i-1,j,n,temp,res,m,visited);
+            temp.pop_back();
+        }
+        //DOWN
+        if(isSafe(i+1,j,m,n) && visited[i+1][j]==false){
+            temp.push_back('D');
+            findPathUtil(i+1,j,n,temp,res,m,visited);
+            temp.pop_back();
+        }
+        //LEFT
+        if(isSafe(i,j-1,m,n) && visited[i][j-1]==false){
+            temp.push_back('L');
+            findPathUtil(i,j-1,n,temp,res,m,visited);
+            temp.pop_back();
+        }
+        //RIGHT
+        if(isSafe(i,j+1,m,n) && visited[i][j+1]==false){
+            temp.push_back('R');
+            findPathUtil(i,j+1,n,temp,res,m,visited);
+            temp.pop_back();
+        }
+        
+        visited[i][j]=false;
+    }
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        vector<string> res;
+        vector<vector<bool>> visited(n,vector<bool>(n,false));
+        string temp="";
+        findPathUtil(0,0,n,temp,res,m,visited);
+        sort(res.begin(),res.end());
+        return res;
+    }
+};
