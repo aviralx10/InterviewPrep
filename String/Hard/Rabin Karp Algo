@@ -1,0 +1,36 @@
+//INSPIRED FROM TUSHAR ROY'S VIDEO.   //time complexity - O(mn) in worst case scenario
+int q=101;
+long createHash(string text,int end){
+  long res;
+  for(int i=0;i<=end;i++){
+    res+=text[i]*pow(q,i);
+  }
+  return res;
+}
+long recaluculateHash(long textHash,string text,int newIndex,int oldIndex,int m){
+  long res;
+  res=textHash-text[oldIndex];
+  res/=prime;
+  res+=text[newIndex]*pow(q,m-1);
+  return res;
+}
+
+vector<int> RobinKarp(string text,string pat){
+  vector<int> res; //STORES THE INDEX OF THE MATCHED PATTERNS WITH THE GIVEN TEXT
+  int m=pat.length();
+  int n=text.length();
+  
+  long patHash=createHash(text,m-1);
+  long texthash=createHash(path,m-1);
+  
+  for(int i=0;i<n-m;i++){
+    if(patHash==textHash && pat.compare(text.substr(i,i+m))==0){                //if hash matches
+      res.push_back(i);
+    }else if(i<n-m+1){
+      textHash=recalculateHash(textHash,text,i-1,i+m-1,m);                      //if hash doesnt match
+    }
+  }
+  
+  
+  return res;
+}
