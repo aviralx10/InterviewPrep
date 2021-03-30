@@ -1,0 +1,16 @@
+void createHeap(int A[],int n){
+  int temp=A[i];
+  int i=n;
+  while(i>=1 && A[i]>temp){
+    A[i]=A[i/2];
+    i=i/2;
+  }
+  A[i]=temp;
+}
+
+int main(){
+  int A[]={3,2,5,1};
+  for(int i=1;i<A.size();i++){
+    insert(A,i);
+  }
+}
