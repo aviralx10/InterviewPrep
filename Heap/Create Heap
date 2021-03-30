@@ -1,3 +1,4 @@
+//ITERATIVE SOLUTION
 void createHeap(int A[],int n){
   int temp=A[i];
   int i=n;
@@ -15,7 +16,7 @@ int main(){
   }
 }
 
-//ALITER
+//RECURSIVE SOLUTION
 void heapify(int arr[], int n, int i)
 {
     int largest = i; // Initialize largest as root
