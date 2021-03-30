@@ -1,0 +1,43 @@
+
+Pick first k elements and create a max heap of size k.
+Perform heapify and print the root element.
+Store the next and last element from the array
+Run a loop from k – 1 to n 
+Replace the value of element which is got out of the window with new element which came inside the window.
+Perform heapify.
+Print the root of the Heap.
+
+def max_of_all_in_k(arr, n):
+    i = 0
+    j = k-1
+     
+    # Create the heap and heapify
+    heap = arr[i:j + 1]
+    heapq._heapify_max(heap)
+     
+    # Print the maximum element from
+    # the first window of size k
+    print(heap[0], end =" ")
+    last = arr[i]
+    i+= 1
+    j+= 1
+    nexts = arr[j]
+     
+    # For every remaining element
+    while j < n:
+         
+        # Add the next element of the window
+        heap[heap.index(last)] = nexts
+         
+        # Heapify to get the maximum
+        # of the current window
+        heapq._heapify_max(heap)
+         
+        # Print the current maximum
+        print(heap[0], end =" ")
+        last = arr[i]
+        i+= 1
+        j+= 1
+        if j < n:
+            nexts = arr[j]
+             
