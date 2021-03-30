@@ -1,0 +1,66 @@
+int AL=26;
+//BASIC STRUCT
+struct Trie{
+  struct Trie *child[AL];
+  bool isLast;
+}
+
+//CREATE A NEW NODE 
+struct *Trie createNode{
+  struct *Trie x=new Trie;
+  x->isLast=false;
+  for(int i=0;i<AL;i++){          //MAKE ALL CHILDREN OF THE NODE AS NULL
+    x->child[i]=NULL;
+  }
+  return x;
+}
+
+//INSERT
+void insert(struct Trie *root,string key){
+  struct Trie *temp=root;
+  for(int i=0;i<key.length();i++){
+    int index=key[i]-'a';
+    if(temp->child[index]==NULL){           //IF NO CHILD IS PRESENT FOR THAT SPECIFIC CHARACTER, THEN ADD 
+      temp->child[index]=createNode();
+    }
+    temp=temp->child[index];
+  }
+  temp->isLast=true;              //MAKE THE LAST LETTER OF THE WORD AS TRUE
+}
+
+//SEARCH
+bool Search(struct Trie *root,string key){
+  struct Trie *temp=root;
+  for(int i=0;i<key.length();i++){
+    int index=key[i]-'a';
+    if(temp->child[index]==NULL){           //IF NO CHILD IS PRESENT FOR THAT SPECIFIC CHARACTER, THEN RETURN 
+      return false;
+    }
+    temp=temp->child[index];
+  }
+  
+  return (temp!=NULL && temp->isLast==true);        //IF THE LAST NODE HAS ISLAST AS TRUE, THEN KEY IS FOUND ELSE NOT
+  
+}
+
+int main()
+{
+    // Input keys (use only 'a' through 'z'
+    // and lower case)
+    string keys[] = {"the", "a", "there",
+                    "answer", "any", "by",
+                     "bye", "their" };
+    int n = sizeof(keys)/sizeof(keys[0]);
+  
+    struct TrieNode *root = createNode();
+  
+    for (int i = 0; i < n; i++)
+        insert(root, keys[i]);
+  
+    // Search for different keys
+    Search(root, "the")? cout << "Yes\n" :
+                         cout << "No\n";
+    Search(root, "these")? cout << "Yes\n" :
+                           cout << "No\n";
+    return 0;
+}
