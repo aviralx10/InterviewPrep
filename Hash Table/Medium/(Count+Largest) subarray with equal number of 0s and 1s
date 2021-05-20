@@ -75,8 +75,8 @@ int countSubarrWithEqualZeroAndOne(int arr[], int n)
     for (auto itr = um.begin(); itr != um.end(); itr++) {
   
         // If there are more than one prefix subarrays
-        // with a particular sum
-        if (itr->second > 1)
+        // with a particular sum                                                      //THESE ARE THE NUMBER OF POSSIBLE PAIRS AVAILABLE, IF FREQ -> 3 
+        if (itr->second > 1)                                          //LET INDICES BE A,B,C THEN 2 COMBINATIONS possible, for freq=4-> 3 pairs possible and so on.
             count += ((itr->second * (itr->second - 1)) / 2);
     }
   
