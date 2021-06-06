@@ -1,0 +1,16 @@
+//METHOD 1 
+SELECT E1.Name AS Employee FROM 
+Employee E1, Employee E2
+WHERE 
+E1.ManagerId=E2.Id 
+AND
+E1.Salary>E2.Salary;
+
+
+//METHOD 2
+SELECT
+     a.NAME AS Employee
+FROM Employee AS a JOIN Employee AS b
+     ON a.ManagerId = b.Id
+     AND a.Salary > b.Salary
+;
