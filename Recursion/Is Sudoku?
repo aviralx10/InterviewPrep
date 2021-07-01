@@ -1,0 +1,53 @@
+bool isSafe(int matrix[9][9],int r,int c,int x){
+    //check row
+    for(int i=0;i<=8;i++){
+        if(matrix[i][c]==x){return false;}
+    }
+    //check column
+    for(int i=0;i<=8;i++){
+        if(matrix[r][i]==x){return false;}
+    }
+    //check matrix
+    int starti=r-r%3;
+    int startj=c-c%3;
+    for(int i=0;i<3;i++){
+        for(int j=0;j<3;j++){
+            if(matrix[starti+i][startj+j]==x){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+bool isSudoku(int matrix[9][9],int r,int c){
+    //end of sudoku
+    if(r==8 && c==9){
+        return true;
+    }
+    //change column -row finished
+    if(c==9){
+        c=0;
+        r++;
+    }
+    //if element is greater than 0, recur to other elements
+    if(matrix[r][c]>0){
+        isSudoku(matrix,r,c+1);
+    }
+    //if element is not assigned 
+    for(int i=1;i<=9;i++){
+        //assign element with one of the numbers
+        if(isSafe(matrix,r,c,i)){
+            matrix[r][c]=i;
+            if(isSudoku(matrix,r,c+1)){
+                return true;
+            }
+        }
+        //backtrack if number wasnt safe to put
+        matrix[r][c]=0;
+    }
+    return false;
+}
+bool isItSudoku(int matrix[9][9]) {
+    return isSudoku(matrix,0,0);
+}
+
