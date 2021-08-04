@@ -1,0 +1,36 @@
+class Twitter {
+public:
+    /** Initialize your data structure here. */
+    vector<pair<int,int>> tweet;              //vector of pairs for storing the userId and the tweetId.
+    unordered_map<int,map<int,int>> m;        //map for knowing for userId follows which userId 
+    Twitter() {
+    }
+    
+    /** Compose a new tweet. */
+    void postTweet(int userId, int tweetId) {
+        tweet.push_back({userId,tweetId});
+    }
+    
+    /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
+    vector<int> getNewsFeed(int userId) {
+        vector<int> res;
+        int count=0;
+        for(int i=tweet.size()-1;i>=0 && count<10;i--){
+            if(tweet[i].first==userId || m[userId][tweet[i].first]==1){
+                count++;
+                res.push_back(tweet[i].second);
+            }
+        }
+        return res;
+    }
+    
+    /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
+    void follow(int followerId, int followeeId) {
+        m[followerId][followeeId]=1;
+    }
+    
+    /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
+    void unfollow(int followerId, int followeeId) {
+        m[followerId][followeeId]=0;
+    }
+};
