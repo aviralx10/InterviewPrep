@@ -39,6 +39,7 @@ int maxProfit(int price[], int n)
         if (price[i] < min_price)
             min_price = price[i];
  
+ 
         // Maximum profit is maximum of:
         // a) previous maximum, i.e., profit[i-1]
         // b) (Buy, Sell) at (min_price, price[i]) and add
