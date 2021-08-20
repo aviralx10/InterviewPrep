@@ -57,6 +57,7 @@ int maxProfit(int price[], int n)
 // Driver program
 int main()
 {
+
     int price[] = {2, 30, 15, 10, 8, 25, 80};
     int n = sizeof(price)/sizeof(price[0]);
     cout << "Maximum Profit = " << maxProfit(price, n);
