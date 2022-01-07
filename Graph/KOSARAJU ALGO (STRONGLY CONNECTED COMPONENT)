@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+void dfs(int i, vector<int> adj[],stack<int> &s, vector<int> &visited){
+    visited[i]=1;
+    for(int x:adj[i]){
+        if(!visited[x]){
+            dfs(x,adj,s,visited);
+        }
+    }
+    s.push(i);
+}
+void revdfs(int i, vector<int> transpose[], vector<int> &revvisited){
+    cout<<i<<" ";
+    revvisited[i]=1;
+    for(int x:transpose[i]){
+        if(!revvisited[x]){
+            revdfs(x,transpose,revvisited);
+        }
+    }
+}
+
+
+int main() {
+    int n=6, m=7;
+	vector<int> adj[n+1]; 
+	adj[1].push_back(3);
+	adj[2].push_back(1);
+	adj[3].push_back(2);
+	adj[3].push_back(5);
+	adj[4].push_back(6);
+	adj[5].push_back(4);
+	adj[6].push_back(5);
+    stack<int> s;
+    vector<int> visited(n+1,0);
+    for(int i=1;i<=n;i++){
+        if(!visited[i]){
+            dfs(i,adj,s,visited);
+        }
+    }
+    //invert the adj matrix - transpose
+    vector<int> transpose[n+1];
+    for(int i=1;i<=n;i++){
+        for(int x:adj[i]){
+            transpose[x].push_back(i);
+        }
+    }
+    
+    // dfs on transpose
+    vector<int> revvisited(n+1,0);
+    while(!s.empty()){
+        int temp=s.top();
+        s.pop();
+        if(!revvisited[temp]){
+            cout << "SCC: "; 
+            revdfs(temp,transpose,revvisited);
+            cout<<endl;
+        }
+        
+    }
+  
+    return 0;
+}
